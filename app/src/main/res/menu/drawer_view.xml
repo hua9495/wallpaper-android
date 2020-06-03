@@ -6,9 +6,9 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/drawer_Item_Wallpaper"
+                    android:id="@+id/drawer_wallpaper"
                     android:enabled="true"
-                    android:icon="@drawable/ic_drag_handle_black_24dp"
+                    android:icon="@drawable/ic_drag_handle"
                     android:title="@string/wallpaper" />
             </group>
         </menu>
@@ -18,16 +18,16 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/drawer_Item_Notification"
+                    android:id="@+id/drawer_notification"
                     android:enabled="true"
-                    android:icon="@drawable/ic_notifications_none_black_24dp"
+                    android:icon="@drawable/ic_notifications_none"
                     app:showAsAction="always"
                     android:title="@string/notification" />
 
                 <item
-                    android:id="@+id/drawer_Item_Profile"
+                    android:id="@+id/drawer_profile"
                     android:enabled="true"
-                    android:icon="@drawable/ic_contacts_black_24dp"
+                    android:icon="@drawable/ic_contacts"
                     android:title="@string/profile" />
             </group>
         </menu>
