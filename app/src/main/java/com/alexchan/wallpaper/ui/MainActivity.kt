@@ -1,18 +1,18 @@
-package com.alexchan.wallpaper
+package com.alexchan.wallpaper.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
+import com.alexchan.wallpaper.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
 
-//    private val REQUEST_CODE = 100
+    // Change to saveButton or photoPickerButton
 
     // For Log statement
     companion object {
@@ -27,27 +27,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         topToolbar.setOnClickListener{openNavDrawer()}
 
         // Set NavigationView Drawer OnItemCLickListener
-        navigation_view.setNavigationItemSelectedListener(drawerNavListener())
+        navigationView.setNavigationItemSelectedListener(drawerNavListener())
         // Set Checked Item Wallpaper by default
-        navigation_view.setCheckedItem(R.id.drawer_Item_Wallpaper)
+        navigationView.setCheckedItem(R.id.drawer_wallpaper)
 
         // Set BottomNavigationView OnItemClickListener
-        bottom_navigation.setOnNavigationItemSelectedListener(bottomNavListener())
+        bottomNavigation.setOnNavigationItemSelectedListener(bottomNavListener())
 
         // Default Wallpaper Fragment
         Log.d(TAG, "Wallpaper fragment host created by default")
-        createNavigationHost(R.navigation.navigation_host_wallpaper)
+        createNavHost(R.navigation.wallpaper)
     }
 
     // Open Navigation Drawer
     private fun openNavDrawer() {
         Log.d(TAG, "Drawer is Open")
-        drawer_layout.openDrawer(GravityCompat.START)
+        drawerLayout.openDrawer(GravityCompat.START)
     }
 
     // Create Navigation Host
-    private fun createNavigationHost(navigationHost: Int) {
-        val host = NavHostFragment.create(navigationHost)
+    private fun createNavHost(navHost: Int) {
+        val host = NavHostFragment.create(navHost)
         supportFragmentManager.beginTransaction().replace(R.id.mainNavHostFragment, host)
             .setPrimaryNavigationFragment(host).commit()
     }
@@ -57,19 +57,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         BottomNavigationView.OnNavigationItemSelectedListener {
 
             when(it.itemId) {
-                R.id.item_Wallpaper -> {
+                R.id.wallpaper -> {
                     Log.d(TAG, "Bottom Navigation Bar: Wallpaper navigation host created")
-                    createNavigationHost(R.navigation.navigation_host_wallpaper)
+                    createNavHost(R.navigation.wallpaper)
                     true
                 }
-                R.id.item_Notification -> {
+                R.id.notification -> {
                     Log.d(TAG, "Bottom Navigation Bar: Notification navigation host created")
-                    createNavigationHost(R.navigation.navigation_host_notification)
+                    createNavHost(R.navigation.notification)
                     true
                 }
-                R.id.item_Profile -> {
+                R.id.profile -> {
                     Log.d(TAG, "Bottom Navigation Bar: Profile navigation host created")
-                    createNavigationHost(R.navigation.navigation_host_profile)
+                    createNavHost(R.navigation.profile)
                     true
                 }
                 else -> false
@@ -81,44 +81,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         NavigationView.OnNavigationItemSelectedListener {
 
             when(it.itemId) {
-                R.id.drawer_Item_Wallpaper -> {
+                R.id.drawer_wallpaper -> {
                     Log.d(TAG, "Drawer Item Wallpaper Selected")
-                    createNavigationHost(R.navigation.navigation_host_wallpaper)
+                    createNavHost(R.navigation.wallpaper)
                 }
-                R.id.drawer_Item_Notification -> {
+                R.id.drawer_notification -> {
                     Log.d(TAG, "Drawer Item Notification Selected")
-                    createNavigationHost(R.navigation.navigation_host_notification)
+                    createNavHost(R.navigation.notification)
                 }
-                R.id.drawer_Item_Profile -> {
+                R.id.drawer_profile -> {
                     Log.d(TAG, "Drawer Item Profile Selected")
-                    createNavigationHost(R.navigation.navigation_host_profile)
+                    createNavHost(R.navigation.profile)
                 }
             }
 
             it.isChecked = true
             Log.d(TAG, "Drawer is Closed")
-            drawer_layout.closeDrawer(GravityCompat.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
-            val photos: ArrayList<UnsplashPhoto>? = data?.getParcelableArrayListExtra(UnsplashPickerActivity.EXTRA_PHOTOS)
-        }
-    }*/
-
-    // Handle OnClick events
-    override fun onClick(v: View?) {
-        when (v!!.id) {
-            /*R.id.btn_photo_picker -> {
-
-                val intent = Intent(this, UnsplashPickerActivity::class.java)
-                startActivityForResult(UnsplashPickerActivity.getStartingIntent(
-                    this,
-                    isMultipleSelection = true), REQUEST_CODE
-                )
-            }*/
-        }
-    }
 }
