@@ -16,7 +16,7 @@
         tools:context=".ui.wallpaper.main_new.MainNewFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photos_grid"
+            android:id="@+id/photosGrid"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="6dp"
@@ -31,6 +31,16 @@
             app:listData="@{mainNewViewModel.photoProperties}"
             tools:itemCount="16"
             tools:listitem="@layout/item_gridview" />
+
+        <ImageView
+            android:id="@+id/statusImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:unsplashApiStatus="@{mainNewViewModel.status}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
