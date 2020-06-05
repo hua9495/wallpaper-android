@@ -10,18 +10,18 @@ data class Photo(
     @Json(name = "likes")
     val likes: Int,
     @Json(name = "urls")
-    val photoUrl: PhotoUrl?,
+    val photoUrl: PhotoUrl,
     @Json(name = "user")
     val user: User?
 )
 
 data class PhotoUrl(
     @Json(name = "raw")
-    val raw: String?,
+    val raw: String,
     @Json(name = "full")
-    val full: String?,
+    val full: String,
     @Json(name = "regular")
-    val regular: String?
+    val regular: String
 )
 
 data class User(
