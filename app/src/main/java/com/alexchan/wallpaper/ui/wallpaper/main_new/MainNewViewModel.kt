@@ -1,9 +1,9 @@
 package com.alexchan.wallpaper.ui.wallpaper.main_new
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.service.web.UnsplashApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,9 +13,14 @@ import kotlinx.coroutines.launch
 class MainNewViewModel : ViewModel() {
     
     private val _mainNewText = MutableLiveData<String>()
+
+    private val _photoProperties = MutableLiveData<List<Photo>>()
     
     val mainNewText: LiveData<String>
         get() = _mainNewText
+
+    val photoProperties: LiveData<List<Photo>>
+        get() = _photoProperties
 
     private var viewModelJob = Job()
 
@@ -33,8 +38,13 @@ class MainNewViewModel : ViewModel() {
 
                 _mainNewText.value = "Success: ${listPhotos.size} number of photos has been successfully retrieved!"
 
-                listPhotos.forEach{
-                    Log.d("Photos", "${it.id}")
+                if (listPhotos.size > 0) {
+                    _photoProperties.value = listPhotos
+
+                    // For testing purposes
+                    /*listPhotos.forEach{
+                        Log.d("Photos", it.photoUrl.raw)
+                    }*/
                 }
             } catch (e: Exception) {
                 _mainNewText.value = "Failure: ${e.message}"
