@@ -10,14 +10,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+enum class UnsplashApiStatus { LOADING, ERROR, DONE }
+
 class MainNewViewModel : ViewModel() {
     
-    private val _mainNewText = MutableLiveData<String>()
+    private val _status = MutableLiveData<UnsplashApiStatus>()
 
     private val _photoProperties = MutableLiveData<List<Photo>>()
     
-    val mainNewText: LiveData<String>
-        get() = _mainNewText
+    val status: LiveData<UnsplashApiStatus>
+        get() = _status
 
     val photoProperties: LiveData<List<Photo>>
         get() = _photoProperties
@@ -34,10 +36,9 @@ class MainNewViewModel : ViewModel() {
         coroutineScope.launch {
             var getPhotosDeferred = UnsplashApi.retrofitService.getPhotos()
             try {
+                _status.value = UnsplashApiStatus.LOADING
                 var listPhotos = getPhotosDeferred.await()
-
-                _mainNewText.value = "Success: ${listPhotos.size} number of photos has been successfully retrieved!"
-
+                _status.value = UnsplashApiStatus.DONE
                 if (listPhotos.size > 0) {
                     _photoProperties.value = listPhotos
 
@@ -47,7 +48,8 @@ class MainNewViewModel : ViewModel() {
                     }*/
                 }
             } catch (e: Exception) {
-                _mainNewText.value = "Failure: ${e.message}"
+                _status.value = UnsplashApiStatus.ERROR
+                _photoProperties.value = ArrayList()
             }
         }
     }
