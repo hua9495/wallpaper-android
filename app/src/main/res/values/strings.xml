@@ -6,11 +6,12 @@
     <string name="wallpaper">Wallpaper</string>
     <string name="wallpaper_fragment">Wallpaper Fragment</string>
     <string name="home">Home</string>
-    <string name="main_new">New</string>
+    <string name="dashboard">New</string>
     <string name="follow">Follow</string>
     <string name="home_fragment">Home Fragment</string>
     <string name="follow_fragment">Follow Fragment</string>
-    <string name="new_fragment">New Fragment</string>
+    <string name="dashboard_fragment">New Fragment</string>
+    <string name="unsplash_api_status">Unsplash API Status</string>
 
     <!-- Profile -->
     <string name="profile">Profile</string>
@@ -24,5 +25,12 @@
     <string name="other_fragments">Other Fragments</string>
     <string name="search">Search</string>
     <string name="content_description_search">Content Description Search</string>
+
+    <!-- Wallpaper Details Profile -->
+    <string name="userLocation">Location</string>
+    <string name="userFollow">Follow</string>
+    <string name="userPhoto">%d Photos</string>
+    <string name="userLiked">%d Liked</string>
+    <string name="userCollections">%d Collections</string>
 
 </resources>
