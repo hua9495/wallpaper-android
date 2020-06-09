@@ -6,18 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.alexchan.wallpaper.R
+import com.alexchan.wallpaper.util.TAG
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    // Change to saveButton or photoPickerButton
-
-    // For Log statement
-    companion object {
-        private val TAG: String?= MainActivity::class.simpleName
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
