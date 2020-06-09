@@ -22,6 +22,11 @@ class PhotoGridAdapter : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHo
         holder.bind(photo)
     }
 
+    /* When 1 image source change in position 1 (any position)
+    Without DiffCallback
+    It will reload the whole Recycler View
+    With DiffCallback
+    It will only reload the position of that Image View without reloading the whole Recycler View */
     companion object DiffCallback : DiffUtil.ItemCallback<Photo>() {
         override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
             return oldItem === newItem
