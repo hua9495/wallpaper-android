@@ -3,10 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wallpaper_navigation"
-    app:startDestination="@id/wallpaperFragment">
+    app:startDestination="@id/wallpaperFragment"
+    tools:ignore="UnusedNavigation">
     <fragment
         android:id="@+id/wallpaperFragment"
         android:name="com.alexchan.wallpaper.ui.wallpaper.WallpaperFragment"
         android:label="fragment_wallpaper"
-        tools:layout="@layout/fragment_wallpaper" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_showDetail"
+            app:destination="@+id/wallpaperDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/wallpaperDetailsFragment"
+        android:name="com.alexchan.wallpaper.ui.wallpaper.dashboard.details.WallpaperDetailsFragment"
+        android:label="fragment_wallpaper_details"
+        tools:layout="@layout/fragment_wallpaper_details">
+    </fragment>
 </navigation>

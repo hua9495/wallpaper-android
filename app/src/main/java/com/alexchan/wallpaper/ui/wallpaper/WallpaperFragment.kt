@@ -5,9 +5,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.alexchan.wallpaper.R
+import com.alexchan.wallpaper.ui.wallpaper.dashboard.DashboardFragment
 import com.alexchan.wallpaper.ui.wallpaper.follow.FollowFragment
 import com.alexchan.wallpaper.ui.wallpaper.home.HomeFragment
-import com.alexchan.wallpaper.ui.wallpaper.main_new.MainNewFragment
 import kotlinx.android.synthetic.main.fragment_wallpaper.*
 
 class WallpaperFragment : Fragment(R.layout.fragment_wallpaper) {
@@ -30,7 +30,7 @@ class WallpaperFragment : Fragment(R.layout.fragment_wallpaper) {
     inner class WallpaperPagerAdapter :
         FragmentStatePagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-        private val fragments = arrayOf(HomeFragment(), MainNewFragment(), FollowFragment())
+        private val fragments = arrayOf(HomeFragment(), DashboardFragment(), FollowFragment())
 
         override fun getItem(position: Int): Fragment {
             return fragments[position]
@@ -41,7 +41,7 @@ class WallpaperFragment : Fragment(R.layout.fragment_wallpaper) {
         override fun getPageTitle(position: Int): CharSequence? {
             return when (position) {
                 0 -> getString(R.string.home)
-                1 -> getString(R.string.main_new)
+                1 -> getString(R.string.dashboard)
                 else -> getString(R.string.follow)
             }
         }

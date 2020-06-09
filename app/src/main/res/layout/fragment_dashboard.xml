@@ -7,13 +7,13 @@
     <data>
         <variable
             name="mainNewViewModel"
-            type="com.alexchan.wallpaper.ui.wallpaper.main_new.MainNewViewModel" />
+            type="com.alexchan.wallpaper.ui.wallpaper.dashboard.MainNewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.wallpaper.main_new.MainNewFragment">
+        tools:context=".ui.wallpaper.dashboard.DashboardFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/photosGrid"
@@ -40,7 +40,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:unsplashApiStatus="@{mainNewViewModel.status}" />
+            app:unsplashApiStatus="@{mainNewViewModel.status}"
+            android:contentDescription="@string/unsplash_api_status" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
