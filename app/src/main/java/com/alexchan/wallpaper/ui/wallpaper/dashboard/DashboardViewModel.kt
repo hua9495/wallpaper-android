@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 enum class UnsplashApiStatus { LOADING, ERROR, DONE }
 
-class MainNewViewModel : ViewModel() {
+class DashboardViewModel : ViewModel() {
     
     private val _status = MutableLiveData<UnsplashApiStatus>()
 

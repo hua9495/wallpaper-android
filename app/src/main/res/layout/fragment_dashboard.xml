@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="mainNewViewModel"
-            type="com.alexchan.wallpaper.ui.wallpaper.dashboard.MainNewViewModel" />
+            name="dashboardViewModel"
+            type="com.alexchan.wallpaper.ui.wallpaper.dashboard.DashboardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2"
-            app:listData="@{mainNewViewModel.photoProperties}"
+            app:listData="@{dashboardViewModel.photoProperties}"
             tools:itemCount="16"
             tools:listitem="@layout/item_gridview" />
 
@@ -40,7 +40,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:unsplashApiStatus="@{mainNewViewModel.status}"
+            app:unsplashApiStatus="@{dashboardViewModel.status}"
             android:contentDescription="@string/unsplash_api_status" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

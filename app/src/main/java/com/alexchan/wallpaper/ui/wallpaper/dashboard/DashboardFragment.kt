@@ -11,8 +11,8 @@ import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
 
-    private val viewModel: MainNewViewModel by lazy {
-        ViewModelProvider(this).get(MainNewViewModel::class.java)
+    private val dashboardViewModel: DashboardViewModel by lazy {
+        ViewModelProvider(this).get(DashboardViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +23,7 @@ class DashboardFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Giving the binding access to the MainNewViewModel
-        binding.mainNewViewModel = viewModel
+        binding.dashboardViewModel = dashboardViewModel
 
         binding.photosGrid.adapter = PhotoGridAdapter()
 
