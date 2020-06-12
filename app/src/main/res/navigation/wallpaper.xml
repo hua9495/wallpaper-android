@@ -20,5 +20,9 @@
         android:name="com.alexchan.wallpaper.ui.wallpaper.dashboard.details.WallpaperDetailsFragment"
         android:label="fragment_wallpaper_details"
         tools:layout="@layout/fragment_wallpaper_details">
+        <argument
+            android:name="selectedPhoto"
+            app:argType="com.alexchan.wallpaper.model.unsplash.Photo"
+            />
     </fragment>
 </navigation>
