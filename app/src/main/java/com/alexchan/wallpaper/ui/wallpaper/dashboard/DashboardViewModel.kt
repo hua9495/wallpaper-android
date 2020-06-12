@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alexchan.wallpaper.model.unsplash.Collection
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.service.web.UnsplashApi
 import kotlinx.coroutines.Dispatchers
@@ -19,9 +18,6 @@ class DashboardViewModel : ViewModel() {
 
     // List <Photo>
     private val _photoProperties = MutableLiveData<List<Photo>>()
-
-    // For Collection
-    private val _photoCollectionProperty = MutableLiveData<Collection>()
     
     val status: LiveData<UnsplashApiStatus>
         get() = _status
@@ -30,9 +26,10 @@ class DashboardViewModel : ViewModel() {
     val photoProperties: LiveData<List<Photo>>
         get() = _photoProperties
 
-    // For Collection
-    val photoCollectionProperty: LiveData<Collection>
-        get() = _photoCollectionProperty
+    private val _navigateToUserCollection = MutableLiveData<Photo>()
+
+    val navigateToUserCollection: LiveData<Photo>
+        get() = _navigateToUserCollection
 
     init {
         getUnsplashPhotos()
@@ -41,10 +38,7 @@ class DashboardViewModel : ViewModel() {
     private fun getUnsplashPhotos() {
         viewModelScope.launch(Dispatchers.Main) {
             // Get List <Photo>
-            var getListPhotosDeferred = UnsplashApi.retrofitService.getPhotos()
-
-            // Get <Collection>
-            //var getCollectionPhotosDeferred = UnsplashApi.retrofitService.getCollectionsPhoto(9343982)
+            var getListPhotosDeferred = UnsplashApi.retrofitService.getPhotosAsync()
 
             try {
                 _status.value = UnsplashApiStatus.LOADING
@@ -60,23 +54,18 @@ class DashboardViewModel : ViewModel() {
                     }
                 }
 
-                /*
-                ////// Show Photo Collection (still under development) \\\\\\
-
-                var collectionPhotos = getCollectionPhotosDeferred.await()
-                if (collectionPhotos != null) {
-                    _photoCollectionProperty.value = collectionPhotos
-                    Log.d("Collection", collectionPhotos.id.toString())
-                    Log.d("Collection", collectionPhotos.collectionPhotoUrl!!.raw)
-                }*/
-
             } catch (e: Exception) {
                 _status.value = UnsplashApiStatus.ERROR
                 _photoProperties.value = ArrayList()
-
-                // For Collection
-                //_photoCollectionProperty.value = null
             }
         }
+    }
+
+    fun displayUserCollection(userPhoto: Photo) {
+        _navigateToUserCollection.value = userPhoto
+    }
+
+    fun displayUserCollectionComplete() {
+        _navigateToUserCollection.value = null
     }
 }
