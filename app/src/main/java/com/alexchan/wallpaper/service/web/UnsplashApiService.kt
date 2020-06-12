@@ -1,6 +1,5 @@
 package com.alexchan.wallpaper.service.web
 
-import com.alexchan.wallpaper.model.unsplash.Collection
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -43,16 +42,12 @@ private val retrofit = Retrofit.Builder()
 
 interface UnsplashApiService {
     @GET("photos")
-    fun getPhotos():
+    fun getPhotosAsync():
             Deferred<List<Photo>>
 
-    @GET("users/{username}/collections")
-    fun getCollections(@Path("username") type: String):
-            Deferred<ArrayList<Collection>>
-
-    @GET("collections/{id}")
-    fun getCollectionsPhoto(@Path("id") type: Int):
-            Deferred<Collection>
+    @GET("users/{username}/photos")
+    fun getUserPhotosAsync(@Path("username") type: String):
+            Deferred<List<Photo>>
 }
 
 // Singleton too expensive to call - so call once
