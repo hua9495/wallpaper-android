@@ -25,12 +25,15 @@
     <string name="other_fragments">Other Fragments</string>
     <string name="search">Search</string>
     <string name="content_description_search">Content Description Search</string>
+    <string name="more">More</string>
+    <string name="content_description_more">content description more</string>
 
     <!-- Wallpaper Details Profile -->
-    <string name="userLocation">Location</string>
+    <string name="userLocation">%s</string>
     <string name="userFollow">Follow</string>
-    <string name="userPhoto">%d Photos</string>
-    <string name="userLiked">%d Liked</string>
-    <string name="userCollections">%d Collections</string>
+    <string name="userTotalPhoto">%d Photos</string>
+    <string name="userTotalLiked">%d Liked</string>
+    <string name="userTotalThousandOverLiked">%.1fk Liked</string>
+    <string name="userTotalCollections">%d Collections</string>
 
 </resources>
