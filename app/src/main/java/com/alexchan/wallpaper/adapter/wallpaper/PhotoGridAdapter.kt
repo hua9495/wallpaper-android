@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexchan.wallpaper.databinding.ItemGridviewBinding
 import com.alexchan.wallpaper.model.unsplash.Photo
 
-class PhotoGridAdapter : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(DiffCallback) {
+class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -19,6 +19,7 @@ class PhotoGridAdapter : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHo
 
     override fun onBindViewHolder(holder: PhotoGridAdapter.PhotoPropertyViewHolder, position: Int) {
         val photo = getItem(position)
+        holder.itemView.setOnClickListener { onClickListener.onClick(photo) }
         holder.bind(photo)
     }
 
@@ -43,5 +44,9 @@ class PhotoGridAdapter : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHo
             binding.photoProperty = photo
             binding.executePendingBindings()
         }
+    }
+
+    class OnClickListener(val clickListener: (userPhoto: Photo) -> Unit) {
+        fun onClick(userPhoto: Photo) = clickListener(userPhoto)
     }
 }
