@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.util.TAG
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,78 +19,47 @@ class MainActivity : AppCompatActivity() {
         // Set TopToolbar OnClickListener
         topToolbar.setOnClickListener{openNavDrawer()}
 
-        // Set NavigationView Drawer OnItemCLickListener
-        navigationView.setNavigationItemSelectedListener(drawerNavListener())
-        // Set Checked Item Wallpaper by default
-        navigationView.setCheckedItem(R.id.drawer_wallpaper)
+        // Default Wallpaper Navigation Host
+        Log.d(TAG, "Wallpaper Navigation host created by default")
+        val navController = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+            ?.findNavController()
 
-        // Set BottomNavigationView OnItemClickListener
-        bottomNavigation.setOnNavigationItemSelectedListener(bottomNavListener())
-
-        // Default Wallpaper Fragment
-        Log.d(TAG, "Wallpaper fragment host created by default")
-        createNavHost(R.navigation.wallpaper)
+        if (navController != null) {
+            NavigationUI.setupWithNavController(bottomNavigation, navController)
+            NavigationUI.setupWithNavController(navigationView, navController)
+        }
     }
 
     // Open Navigation Drawer
     private fun openNavDrawer() {
+        updateNavigationDrawerSetCheckedItem()
         Log.d(TAG, "Drawer is Open")
         drawerLayout.openDrawer(GravityCompat.START)
     }
 
-    // Create Navigation Host
-    private fun createNavHost(navHost: Int) {
-        val host = NavHostFragment.create(navHost)
-        supportFragmentManager.beginTransaction().replace(R.id.mainNavHostFragment, host)
-            .setPrimaryNavigationFragment(host).commit()
+    // Update Navigation Drawer Set Checked Item State
+    private fun updateNavigationDrawerSetCheckedItem() {
+        Log.d(TAG, supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+            ?.findNavController()?.currentDestination?.id.toString())
+        when (supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)?.findNavController()?.currentDestination?.id) {
+            R.id.wallpaperFragment -> {
+                navigationView.setCheckedItem(R.id.wallpaperFragment)
+            }
+            R.id.notificationFragment -> {
+                navigationView.setCheckedItem(R.id.notificationFragment)
+            }
+            R.id.profileFragment -> {
+                navigationView.setCheckedItem(R.id.profileFragment)
+            }
+        }
     }
 
-    // Bottom Navigation Listener
-    private fun bottomNavListener() : BottomNavigationView.OnNavigationItemSelectedListener =
-        BottomNavigationView.OnNavigationItemSelectedListener {
-
-            when(it.itemId) {
-                R.id.wallpaper -> {
-                    Log.d(TAG, "Bottom Navigation Bar: Wallpaper navigation host created")
-                    createNavHost(R.navigation.wallpaper)
-                    true
-                }
-                R.id.notification -> {
-                    Log.d(TAG, "Bottom Navigation Bar: Notification navigation host created")
-                    createNavHost(R.navigation.notification)
-                    true
-                }
-                R.id.profile -> {
-                    Log.d(TAG, "Bottom Navigation Bar: Profile navigation host created")
-                    createNavHost(R.navigation.profile)
-                    true
-                }
-                else -> false
-            }
-        }
-
-    // Drawer Navigation Listener
-    private fun drawerNavListener() : NavigationView.OnNavigationItemSelectedListener =
-        NavigationView.OnNavigationItemSelectedListener {
-
-            when(it.itemId) {
-                R.id.drawer_wallpaper -> {
-                    Log.d(TAG, "Drawer Item Wallpaper Selected")
-                    createNavHost(R.navigation.wallpaper)
-                }
-                R.id.drawer_notification -> {
-                    Log.d(TAG, "Drawer Item Notification Selected")
-                    createNavHost(R.navigation.notification)
-                }
-                R.id.drawer_profile -> {
-                    Log.d(TAG, "Drawer Item Profile Selected")
-                    createNavHost(R.navigation.profile)
-                }
-            }
-
-            it.isChecked = true
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             Log.d(TAG, "Drawer is Closed")
             drawerLayout.closeDrawer(GravityCompat.START)
-            true
+        } else {
+            super.onBackPressed()
         }
+    }
 }
