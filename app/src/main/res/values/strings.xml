@@ -35,5 +35,7 @@
     <string name="userTotalLiked">%d Liked</string>
     <string name="userTotalThousandOverLiked">%.1fk Liked</string>
     <string name="userTotalCollections">%d Collections</string>
+    <string name="selected_dot_indicator">Selected dot indicator</string>
+    <string name="default_dot_indicator">Default dot indicator</string>
 
 </resources>
