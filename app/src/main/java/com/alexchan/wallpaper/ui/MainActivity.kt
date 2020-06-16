@@ -2,8 +2,10 @@ package com.alexchan.wallpaper.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.alexchan.wallpaper.R
@@ -19,11 +21,15 @@ class MainActivity : AppCompatActivity() {
         // Set TopToolbar OnClickListener
         topToolbar.setOnClickListener{openNavDrawer()}
 
+        // Update On Swipe Open Navigation Drawer Set Checked Item State
+        updateOnSwipeOpenNavDrawer()
+
         // Default Wallpaper Navigation Host
         Log.d(TAG, "Wallpaper Navigation host created by default")
         val navController = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
             ?.findNavController()
 
+        // Set up Bottom Navigation and Navigation Drawer with navController
         if (navController != null) {
             NavigationUI.setupWithNavController(bottomNavigation, navController)
             NavigationUI.setupWithNavController(navigationView, navController)
@@ -37,20 +43,24 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.openDrawer(GravityCompat.START)
     }
 
+    // Update on Swipe Open Navigation Drawer Set Checked Item State
+    private fun updateOnSwipeOpenNavDrawer() {
+        drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                super.onDrawerSlide(drawerView, slideOffset)
+                updateNavigationDrawerSetCheckedItem()
+            }
+        })
+    }
+
     // Update Navigation Drawer Set Checked Item State
     private fun updateNavigationDrawerSetCheckedItem() {
         Log.d(TAG, supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
             ?.findNavController()?.currentDestination?.id.toString())
         when (supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)?.findNavController()?.currentDestination?.id) {
-            R.id.wallpaperFragment -> {
-                navigationView.setCheckedItem(R.id.wallpaperFragment)
-            }
-            R.id.notificationFragment -> {
-                navigationView.setCheckedItem(R.id.notificationFragment)
-            }
-            R.id.profileFragment -> {
-                navigationView.setCheckedItem(R.id.profileFragment)
-            }
+            R.id.wallpaperFragment -> navigationView.setCheckedItem(R.id.wallpaperFragment)
+            R.id.notificationFragment -> navigationView.setCheckedItem(R.id.notificationFragment)
+            R.id.profileFragment -> navigationView.setCheckedItem(R.id.profileFragment)
         }
     }
 
