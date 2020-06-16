@@ -22,8 +22,7 @@
         tools:layout="@layout/fragment_wallpaper_details">
         <argument
             android:name="selectedPhoto"
-            app:argType="com.alexchan.wallpaper.model.unsplash.Photo"
-            />
+            app:argType="com.alexchan.wallpaper.model.unsplash.Photo" />
     </fragment>
 
     <fragment
