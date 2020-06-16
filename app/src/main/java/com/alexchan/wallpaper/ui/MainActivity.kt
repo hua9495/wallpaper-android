@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.util.TAG
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_wallpaper.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,8 +27,8 @@ class MainActivity : AppCompatActivity() {
 
         // Default Wallpaper Navigation Host
         Log.d(TAG, "Wallpaper Navigation host created by default")
-        val navController = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-            ?.findNavController()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+        val navController = navHostFragment?.findNavController()
 
         // Set up Bottom Navigation and Navigation Drawer with navController
         if (navController != null) {
@@ -65,9 +66,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+        val navController = navHostFragment?.findNavController()
+        val navCurrentDestination = navController?.currentDestination?.id
+        val count = supportFragmentManager.backStackEntryCount
+        Log.d(TAG, count.toString())
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             Log.d(TAG, "Drawer is Closed")
             drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (viewPager != null && viewPager.currentItem != 1 && navCurrentDestination == R.id.wallpaperFragment) {
+            viewPager.setCurrentItem(1, true)
+        } else if ((navCurrentDestination != R.id.wallpaperFragment)) {
+            navController?.navigate(R.id.wallpaperFragment)
         } else {
             super.onBackPressed()
         }
