@@ -14,13 +14,14 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topToolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            app:title="Unsplash"
+            app:title="@string/unsplash"
             app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/ic_menu"
             style="@style/Widget.MaterialComponents.Toolbar.Primary" />
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
-            android:background="?android:attr/windowBackground"
+            android:theme="@style/TabSelectedTheme"
             app:menu="@menu/bottom_navigation_menu" />
 
     </LinearLayout>
@@ -60,6 +61,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:theme="@style/TabSelectedTheme"
         app:menu="@menu/drawer_view" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
