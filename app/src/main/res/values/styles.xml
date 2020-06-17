@@ -44,4 +44,8 @@
         <item name="colorPrimary">@color/colorTabSelected</item>
     </style>
 
+    <style name="TitleUsernameBold" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
