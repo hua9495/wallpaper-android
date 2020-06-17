@@ -39,6 +39,8 @@ data class User(
 ) : Parcelable {
     val isLocationNull
         get() = location == null
+    val isTotalPhotosOverThousand
+        get() = totalPhotos > 1000
     val isTotalLikesOverThousand
         get() = totalLikes > 1000
 }
