@@ -1,8 +1,9 @@
 <resources>
+    <!-- App Name -->
     <string name="app_name">Wallpaper</string>
-    <string name="photo_picker">Photo Picker</string>
 
     <!-- Wallpaper -->
+    <string name="unsplash">Unsplash</string>
     <string name="wallpaper">Wallpaper</string>
     <string name="wallpaper_fragment">Wallpaper Fragment</string>
     <string name="home">Home</string>
@@ -26,7 +27,7 @@
     <string name="search">Search</string>
     <string name="content_description_search">Content Description Search</string>
     <string name="more">More</string>
-    <string name="content_description_more">content description more</string>
+    <string name="content_description_more">Content Description More</string>
 
     <!-- Wallpaper Details Profile -->
     <string name="userLocation">%s</string>
