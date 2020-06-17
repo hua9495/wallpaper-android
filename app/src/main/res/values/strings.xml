@@ -32,7 +32,8 @@
     <!-- Wallpaper Details Profile -->
     <string name="userLocation">%s</string>
     <string name="userFollow">Follow</string>
-    <string name="userTotalPhoto">%d Photos</string>
+    <string name="userTotalPhotos">%d Photos</string>
+    <string name="userTotalThousandOverPhotos">%.1fk Photos</string>
     <string name="userTotalLiked">%d Liked</string>
     <string name="userTotalThousandOverLiked">%.1fk Liked</string>
     <string name="userTotalCollections">%d Collections</string>
