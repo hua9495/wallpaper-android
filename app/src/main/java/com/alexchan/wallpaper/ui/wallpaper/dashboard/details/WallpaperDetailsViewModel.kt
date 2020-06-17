@@ -47,7 +47,18 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
 
     val displayUserTotalPhotos = Transformations.map(userPhotoCollection) {
         Log.d("Display Photo", it.user?.totalPhotos.toString())
-        app.applicationContext.getString(R.string.userTotalPhoto, it.user?.totalPhotos)
+        app.applicationContext.getString(
+            when (it.user!!.isTotalPhotosOverThousand) {
+                true -> R.string.userTotalThousandOverPhotos
+                false -> R.string.userTotalPhotos
+            }, when (it.user.isTotalPhotosOverThousand) {
+                true -> {
+                    val df = DecimalFormat("#.#")
+                    df.roundingMode = RoundingMode.FLOOR
+                    (df.format(((it.user!!.totalPhotos).toFloat() / 1000))).toFloat()
+                }
+                false -> it.user!!.totalPhotos
+            })
     }
 
     val displayUserTotalLiked = Transformations.map(userPhotoCollection) {
