@@ -15,7 +15,8 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/titleTopToolbar"
@@ -24,7 +25,8 @@
                 app:title="@{wallpaperDetailsViewModel.userPhotoCollection.user.name}"
                 app:menu="@menu/title_details_top_app_bar"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_ios"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                tools:title="@string/unsplash" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -64,7 +66,7 @@
                     android:id="@+id/userProfileImageView"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
-                    app:civ_border_color="@color/colorAccent"
+                    app:civ_border_color="@color/colorSecondaryVariant"
                     app:civ_border_width="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
