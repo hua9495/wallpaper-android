@@ -148,7 +148,7 @@
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:textColor="#8d8d8d"
                     android:layout_weight="1"
-                    tools:text="@string/userTotalPhoto" />
+                    tools:text="@string/userTotalPhotos" />
 
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
