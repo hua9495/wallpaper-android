@@ -9,14 +9,26 @@
             type="com.alexchan.wallpaper.model.unsplash.Photo" />
     </data>
 
-    <ImageView
-        android:id="@+id/unsplashPhotoImageView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:padding="2dp"
-        app:imageUrl="@{photoProperty.photoUrl.raw}"
-        tools:src="@tools:sample/backgrounds/scenic"/>
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="8dp">
+
+            <ImageView
+                android:id="@+id/unsplashPhotoImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                app:imageUrl="@{photoProperty.photoUrl.raw}"
+                tools:src="@tools:sample/backgrounds/scenic"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
 
 </layout>
