@@ -32,10 +32,12 @@
     <!-- Wallpaper Details Profile -->
     <string name="userLocation">%s</string>
     <string name="userFollow">Follow</string>
+    <string name="userTotalPhoto">%d Photo</string>
     <string name="userTotalPhotos">%d Photos</string>
     <string name="userTotalThousandOverPhotos">%.1fk Photos</string>
     <string name="userTotalLiked">%d Liked</string>
     <string name="userTotalThousandOverLiked">%.1fk Liked</string>
+    <string name="userTotalCollection">%d Collection</string>
     <string name="userTotalCollections">%d Collections</string>
     <string name="selected_dot_indicator">Selected dot indicator</string>
     <string name="default_dot_indicator">Default dot indicator</string>
