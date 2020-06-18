@@ -48,9 +48,12 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
     val displayUserTotalPhotos = Transformations.map(userPhotoCollection) {
         Log.d("Display Photo", it.user?.totalPhotos.toString())
         app.applicationContext.getString(
-            when (it.user!!.isTotalPhotosOverThousand) {
-                true -> R.string.userTotalThousandOverPhotos
-                false -> R.string.userTotalPhotos
+            when (it.user!!.isTotalPhotoEqualOne) {
+                true -> R.string.userTotalPhoto
+                false -> when (it.user!!.isTotalPhotosOverThousand) {
+                    true -> R.string.userTotalThousandOverPhotos
+                    false -> R.string.userTotalPhotos
+                }
             }, when (it.user.isTotalPhotosOverThousand) {
                 true -> {
                     val df = DecimalFormat("#.#")
@@ -80,7 +83,10 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
 
     val displayUserTotalCollections = Transformations.map(userPhotoCollection) {
         Log.d("Display Collections", it.user!!.totalCollections.toString())
-        app.applicationContext.getString(R.string.userTotalCollections, it.user!!.totalCollections)
+        app.applicationContext.getString(when (it.user!!.isTotalCollectionEqualOne) {
+            true -> R.string.userTotalCollection
+            false -> R.string.userTotalCollections
+        }, it.user!!.totalCollections)
     }
 
     init {
