@@ -12,7 +12,7 @@ fun bindUserProfileImage(view: CircleImageView, url: String?) {
         Glide.with(view.context)
             .load(url)
             .apply(RequestOptions()
-                    .placeholder(R.drawable.ic_baseline_cloud_off)
+                    .placeholder(R.drawable.placeholder_user)
                     .error(R.drawable.ic_baseline_broken_image))
             .into(view)
     }
