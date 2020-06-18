@@ -189,7 +189,7 @@
                     android:padding="6dp"
                     android:clipToPadding="false"
                     app:layoutManager=
-                        "androidx.recyclerview.widget.GridLayoutManager"
+                        "androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:spanCount="2"
                     app:listDataDetails="@{wallpaperDetailsViewModel.userPhotos}"
                     tools:itemCount="16"
