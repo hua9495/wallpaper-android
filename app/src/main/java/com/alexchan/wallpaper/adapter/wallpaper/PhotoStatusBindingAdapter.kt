@@ -11,7 +11,7 @@ fun bindStatus(statusImageView: ImageView, status: UnsplashApiStatus?) {
     when (status) {
         UnsplashApiStatus.LOADING -> {
             statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.loading_animation)
+            statusImageView.setImageResource(R.drawable.loading_animation_api_status)
         }
         UnsplashApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
