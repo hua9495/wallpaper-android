@@ -37,7 +37,7 @@ class WallpaperDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Set TitleTopToolbar OnClickListener for Wallpaper Details Fragment
-        requireActivity().titleTopToolbar.setOnClickListener { backToDashboardFragment() }
+        requireActivity().titleTopToolbar.setNavigationOnClickListener {backToDashboardFragment()}
     }
 
     private fun backToDashboardFragment() {

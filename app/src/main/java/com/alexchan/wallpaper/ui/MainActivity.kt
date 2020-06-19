@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Set TopToolbar OnClickListener
-        topToolbar.setOnClickListener{openNavDrawer()}
+        topToolbar.setNavigationOnClickListener{openNavDrawer()}
 
         // Update On Swipe Open Navigation Drawer Set Checked Item State
         updateOnSwipeOpenNavDrawer()
