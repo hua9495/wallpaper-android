@@ -28,6 +28,11 @@
     <string name="content_description_search">Content Description Search</string>
     <string name="more">More</string>
     <string name="content_description_more">Content Description More</string>
+    <string name="change_display_view">Change Display View</string>
+    <string name="list_view">List View</string>
+    <string name="grid_view">Grid View</string>
+    <string name="staggered_grid_view">Staggered Grid View</string>
+    <string name="search_photos">Search Photos…</string>
 
     <!-- Wallpaper Details Profile -->
     <string name="userLocation">%s</string>
