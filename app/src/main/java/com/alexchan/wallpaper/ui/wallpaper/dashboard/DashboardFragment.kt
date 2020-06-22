@@ -26,7 +26,7 @@ class DashboardFragment : Fragment() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
-        // Giving the binding access to the MainNewViewModel
+        // Giving the binding access to the DashboardViewModel
         binding.dashboardViewModel = dashboardViewModel
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
