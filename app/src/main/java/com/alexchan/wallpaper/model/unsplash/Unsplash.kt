@@ -5,6 +5,14 @@ import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+data class Unsplash(
+    val total: Int,
+    @Json(name = "total_pages")
+    val totalPages: Int,
+    val results: List<Photo>
+) : Parcelable
+
+@Parcelize
 data class Photo(
     val id: String?,
     val description: String?,
