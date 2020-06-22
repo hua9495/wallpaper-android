@@ -1,6 +1,7 @@
 package com.alexchan.wallpaper.service.web
 
 import com.alexchan.wallpaper.model.unsplash.Photo
+import com.alexchan.wallpaper.model.unsplash.Unsplash
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -12,6 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 private const val ACCESS_KEY = "3O-0lx3tK8EB-5FUQnneiHneMwC0waml_N4jrNvv2pQ"
@@ -48,6 +50,10 @@ interface UnsplashApiService {
     @GET("users/{username}/photos")
     fun getUserPhotosAsync(@Path("username") type: String):
             Deferred<List<Photo>>
+
+    @GET("search/photos")
+    fun getSearchPhotosAsync(@Query("query") type: String):
+            Deferred<Unsplash>
 }
 
 // Singleton too expensive to call - so call once
