@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.service.web.UnsplashApi
+import com.alexchan.wallpaper.ui.MainActivity.Companion.searchQuery
+import com.alexchan.wallpaper.ui.MainActivity.Companion.searchStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -32,7 +34,11 @@ class DashboardViewModel : ViewModel() {
         get() = _navigateToUserCollection
 
     init {
-        getUnsplashPhotos()
+        if (!searchStatus) {
+            getUnsplashPhotos()
+        } else {
+            getUnsplashSearchPhotos(searchQuery)
+        }
     }
     
     private fun getUnsplashPhotos() {
@@ -50,6 +56,35 @@ class DashboardViewModel : ViewModel() {
 
                     // For testing purposes
                     listPhotos.forEach{
+                        Log.d("Photos", it.photoUrl.raw)
+                    }
+                }
+
+            } catch (e: Exception) {
+                _status.value = UnsplashApiStatus.ERROR
+                _photoProperties.value = ArrayList()
+            }
+        }
+    }
+
+    fun getUnsplashSearchPhotos(searchQuery: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            // Get List <Photo>
+            var getListSearchedPhotosDeferred = UnsplashApi.retrofitService.getSearchPhotosAsync(searchQuery)
+
+            try {
+                _status.value = UnsplashApiStatus.LOADING
+                var listSearchedPhotos = getListSearchedPhotosDeferred.await()
+                _status.value = UnsplashApiStatus.DONE
+
+                Log.d("Photos", listSearchedPhotos.results.size.toString())
+
+                if (listSearchedPhotos.results.size > 0) {
+                    _photoProperties.value = listSearchedPhotos.results
+
+                    // For testing purposes
+                    listSearchedPhotos.results.forEach{
+                        //Log.d("Photos", it.photoUrl.raw)
                         Log.d("Photos", it.photoUrl.raw)
                     }
                 }

@@ -11,9 +11,13 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.util.TAG
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_wallpaper.*
 
 
@@ -60,21 +64,39 @@ class MainActivity : AppCompatActivity() {
 
                 // Handle Search Query
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
+                    override fun onQueryTextSubmit(query: String): Boolean {
                         searchView.clearFocus()
+
+                        if (!query.isNullOrEmpty()) {
+                            searchQuery = query
+                            searchStatus = true
+
+                            val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                            val navController = navHostFragment?.findNavController()
+                            navController?.navigate(R.id.wallpaperFragment)
+                        }
 
                         Toast.makeText(this@MainActivity, "Searching: $query", Toast.LENGTH_LONG).show()
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        //Toast.makeText(this@MainActivity, "Searching: $newText", Toast.LENGTH_LONG).show()
+                        if (!newText.isNullOrEmpty()) {
+                            Toast.makeText(this@MainActivity, "Searching: $newText", Toast.LENGTH_SHORT).show()
+
+                            searchQuery = newText
+                            searchStatus = true
+
+                            val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                            val navController = navHostFragment?.findNavController()
+                            navController?.navigate(R.id.wallpaperFragment)
+                        }
                         return true
                     }
                 })
                 true
             }
-            /*R.id.listView -> {
+            R.id.listView -> {
                 // Handle List View
                 photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                 true
@@ -88,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                 // Handle Staggered View
                 photosGrid.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 true
-            }*/
+            }
             else -> false
         }
     }
@@ -122,6 +144,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        val searchView = topToolbar.menu.findItem(R.id.search).actionView as SearchView
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
         val navController = navHostFragment?.findNavController()
         val navCurrentDestination = navController?.currentDestination?.id
@@ -130,12 +153,19 @@ class MainActivity : AppCompatActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             Log.d(TAG, "Drawer is Closed")
             drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (!searchView.isIconified) {
+            topToolbar.collapseActionView()
         } else if (viewPager != null && viewPager.currentItem != 1 && navCurrentDestination == R.id.wallpaperFragment) {
             viewPager.setCurrentItem(1, true)
-        } else if ((navCurrentDestination != R.id.wallpaperFragment)) {
+        } else if (navCurrentDestination != R.id.wallpaperFragment || navCurrentDestination == R.id.wallpaperFragment) {
             navController?.navigate(R.id.wallpaperFragment)
         } else {
             super.onBackPressed()
         }
+    }
+
+    companion object {
+        var searchQuery : String = ""
+        var searchStatus : Boolean = false
     }
 }
