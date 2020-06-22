@@ -2,8 +2,11 @@ package com.alexchan.wallpaper.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
@@ -13,14 +16,18 @@ import com.alexchan.wallpaper.util.TAG
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_wallpaper.*
 
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Set TopToolbar OnClickListener
+        // Set TopToolbar NavigationOnClickListener
         topToolbar.setNavigationOnClickListener{openNavDrawer()}
+
+        // Set TopToolbar OnMenuItemClickListener
+        topToolbar.setOnMenuItemClickListener{item: MenuItem? -> onMenuItemClick(item)}
 
         // Update On Swipe Open Navigation Drawer Set Checked Item State
         updateOnSwipeOpenNavDrawer()
@@ -34,6 +41,55 @@ class MainActivity : AppCompatActivity() {
         if (navController != null) {
             NavigationUI.setupWithNavController(bottomNavigation, navController)
             NavigationUI.setupWithNavController(navigationView, navController)
+        }
+    }
+
+    private fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.search -> {
+
+                // Handle Search View
+                val searchView = item.actionView as SearchView
+                searchView.queryHint = getString(R.string.search_photos)
+                searchView.isSubmitButtonEnabled = true
+
+                // Hide and UnHide changeDisplayView Menu Item
+                searchView.setOnQueryTextFocusChangeListener { v, hasFocus ->
+                    topToolbar.menu.findItem(R.id.changeDisplayView).isVisible = !hasFocus
+                }
+
+                // Handle Search Query
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        searchView.clearFocus()
+
+                        Toast.makeText(this@MainActivity, "Searching: $query", Toast.LENGTH_LONG).show()
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        //Toast.makeText(this@MainActivity, "Searching: $newText", Toast.LENGTH_LONG).show()
+                        return true
+                    }
+                })
+                true
+            }
+            /*R.id.listView -> {
+                // Handle List View
+                photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                true
+            }
+            R.id.gridView -> {
+                // Handle Grid View
+                photosGrid.layoutManager = GridLayoutManager(this, 2)
+                true
+            }
+            R.id.staggeredGridView -> {
+                // Handle Staggered View
+                photosGrid.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                true
+            }*/
+            else -> false
         }
     }
 
