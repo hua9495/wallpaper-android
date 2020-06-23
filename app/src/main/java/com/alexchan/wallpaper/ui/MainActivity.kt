@@ -71,12 +71,11 @@ class MainActivity : AppCompatActivity() {
                             searchQuery = query
                             searchStatus = true
 
+                            Toast.makeText(this@MainActivity, "Searching: $query", Toast.LENGTH_LONG).show()
                             val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
                             val navController = navHostFragment?.findNavController()
                             navController?.navigate(R.id.wallpaperFragment)
                         }
-
-                        Toast.makeText(this@MainActivity, "Searching: $query", Toast.LENGTH_LONG).show()
                         return true
                     }
 
