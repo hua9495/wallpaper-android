@@ -12,7 +12,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.util.TAG
@@ -97,11 +96,14 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.listView -> {
                 // Handle List View
-                photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                //photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                photosGrid.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
                 true
             }
             R.id.gridView -> {
                 // Handle Grid View
+                //unsplashPhotoImageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                //unsplashPhotoImageView.requestLayout()
                 photosGrid.layoutManager = GridLayoutManager(this, 2)
                 true
             }
