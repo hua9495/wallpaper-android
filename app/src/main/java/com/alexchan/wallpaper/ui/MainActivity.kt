@@ -12,14 +12,17 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.util.TAG
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    // Hold a Reference to PhotosGrid Recylerview
+    val photosGridRecylerView by lazy { findViewById<RecyclerView>(R.id.photosGrid) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,19 +99,19 @@ class MainActivity : AppCompatActivity() {
             R.id.listView -> {
                 // Handle List View
                 //photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                photosGrid.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+                photosGridRecylerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
                 true
             }
             R.id.gridView -> {
                 // Handle Grid View
                 //unsplashPhotoImageView.scaleType = ImageView.ScaleType.CENTER_CROP
                 //unsplashPhotoImageView.requestLayout()
-                photosGrid.layoutManager = GridLayoutManager(this, 2)
+                photosGridRecylerView.layoutManager = GridLayoutManager(this, 2)
                 true
             }
             R.id.staggeredGridView -> {
                 // Handle Staggered View
-                photosGrid.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                photosGridRecylerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 true
             }
             else -> false
