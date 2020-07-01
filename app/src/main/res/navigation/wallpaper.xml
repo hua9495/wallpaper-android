@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_showDetail"
-            app:destination="@+id/wallpaperDetailsFragment" />
+            app:destination="@+id/wallpaperDetailsFragment"
+            app:popUpTo="@id/wallpaperDetailsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
