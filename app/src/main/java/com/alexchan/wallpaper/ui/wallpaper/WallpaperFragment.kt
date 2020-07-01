@@ -15,13 +15,9 @@ class WallpaperFragment : Fragment(R.layout.fragment_wallpaper) {
 
     private lateinit var viewPagerAdapter: WallpaperPagerAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewPagerAdapter = WallpaperPagerAdapter(this)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewPagerAdapter = WallpaperPagerAdapter(this)
         setupViewPager()
     }
 
