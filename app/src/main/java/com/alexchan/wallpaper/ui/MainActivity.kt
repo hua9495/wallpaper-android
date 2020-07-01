@@ -17,7 +17,6 @@ import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.util.TAG
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_wallpaper.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -146,22 +145,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val searchView = topToolbar.menu.findItem(R.id.search).actionView as SearchView
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-        val navController = navHostFragment?.findNavController()
-        val navCurrentDestination = navController?.currentDestination?.id
-        val count = supportFragmentManager.backStackEntryCount
-        Log.d(TAG, count.toString())
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            Log.d(TAG, "Drawer is Closed")
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else if (!searchView.isIconified) {
-            topToolbar.collapseActionView()
-        } else if (viewPager != null && viewPager.currentItem != 1 && navCurrentDestination == R.id.wallpaperFragment) {
-            viewPager.setCurrentItem(1, true)
-        } else if (navCurrentDestination != R.id.wallpaperFragment || navCurrentDestination == R.id.wallpaperFragment) {
-            navController?.navigate(R.id.wallpaperFragment)
-        } else {
-            super.onBackPressed()
+        when (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            true -> {
+                Log.d(TAG, "Drawer is Closed")
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            false -> when (!searchView.isIconified) {
+                true -> topToolbar.collapseActionView()
+                false -> super.onBackPressed()
+            }
         }
     }
 
