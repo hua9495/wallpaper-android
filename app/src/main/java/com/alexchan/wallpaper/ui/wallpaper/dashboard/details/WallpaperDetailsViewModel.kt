@@ -56,9 +56,7 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
                 }
             }, when (it.user.isTotalPhotosOverThousand) {
                 true -> {
-                    val df = DecimalFormat("#.#")
-                    df.roundingMode = RoundingMode.FLOOR
-                    (df.format(((it.user!!.totalPhotos).toFloat() / 1000))).toFloat()
+                    convertThousandRoundingToOneDecimal((it.user!!.totalPhotos).toFloat())
                 }
                 false -> it.user!!.totalPhotos
             })
@@ -72,10 +70,7 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
                 false -> R.string.userTotalLiked
         }, when (it.user.isTotalLikesOverThousand) {
                 true -> {
-                    val df = DecimalFormat("#.#")
-                    df.roundingMode = RoundingMode.FLOOR
-                    Log.d("Display Calculation", df.format(((it.user!!.totalLikes).toFloat() / 1000)))
-                    (df.format(((it.user!!.totalLikes).toFloat() / 1000))).toFloat()
+                    convertThousandRoundingToOneDecimal((it.user!!.totalLikes).toFloat())
                 }
                 false -> it.user!!.totalLikes
             })
@@ -87,6 +82,14 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
             true -> R.string.userTotalCollection
             false -> R.string.userTotalCollections
         }, it.user!!.totalCollections)
+    }
+
+    // Formula to Convert Likes and Photos which is over a Thousand to 1 decimal place
+    private fun convertThousandRoundingToOneDecimal(userTotalValue: Float): Float {
+        val df = DecimalFormat("#.#")
+        df.roundingMode = RoundingMode.FLOOR
+        Log.d("Display Calculation", df.format((userTotalValue / 1000)))
+        return (df.format((userTotalValue / 1000))).toFloat()
     }
 
     init {
