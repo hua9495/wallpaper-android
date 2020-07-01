@@ -1,15 +1,15 @@
 package com.alexchan.wallpaper.ui.wallpaper.dashboard.details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.adapter.wallpaper.PhotoDetailsGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentWallpaperDetailsBinding
-import com.alexchan.wallpaper.util.TAG
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_wallpaper_details.*
 
@@ -36,12 +36,9 @@ class WallpaperDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set TitleTopToolbar OnClickListener for Wallpaper Details Fragment
-        requireActivity().titleTopToolbar.setNavigationOnClickListener {backToDashboardFragment()}
-    }
-
-    private fun backToDashboardFragment() {
-        Log.d(TAG, "Navigate back to previous fragment")
-        activity?.onBackPressed()
+        // Set TitleTopToolbar OnNavigationClickListener navigate back to Wallpaper Fragment
+        requireActivity().titleTopToolbar.setNavigationOnClickListener {
+            it.findNavController().navigate(R.id.wallpaperFragment)
+        }
     }
 }
