@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
                 app:title="@{wallpaperDetailsViewModel.userPhotoCollection.user.name}"
-                app:titleTextColor="#8d8d8d"
+                app:titleTextColor="@color/colorTitleText"
                 android:theme="@style/TitleUsernameBold"
                 app:menu="@menu/title_details_top_app_bar"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_ios"

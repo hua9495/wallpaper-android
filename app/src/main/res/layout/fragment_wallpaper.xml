@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/TabSelectedTheme"
         app:tabIndicator="@drawable/selected_dot"
-        app:tabIndicatorColor="#f44336"
+        app:tabIndicatorColor="@color/colorTabIndicator"
         app:tabIndicatorHeight="20dp" />
 
     <androidx.viewpager2.widget.ViewPager2

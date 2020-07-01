@@ -18,4 +18,8 @@
     <color name="colorOnError">#FFFFFF</color>
 
     <color name="colorTabSelected">#6801f4</color>
+
+    <color name="colorTabIndicator">#f44336</color>
+
+    <color name="colorTitleText">#8d8d8d</color>
 </resources>
