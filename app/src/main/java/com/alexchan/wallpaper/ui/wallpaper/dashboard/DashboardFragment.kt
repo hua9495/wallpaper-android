@@ -57,7 +57,6 @@ class DashboardFragment : Fragment() {
         // Set TopToolbar OnMenuItemClickListener
         requireActivity().topToolbar.setOnMenuItemClickListener{item: MenuItem? -> onMenuItemClick(item)}
 
-
         return binding.root
     }
 
