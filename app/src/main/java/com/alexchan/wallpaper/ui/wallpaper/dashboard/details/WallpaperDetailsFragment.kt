@@ -38,6 +38,7 @@ class WallpaperDetailsFragment : Fragment() {
 
         // Set TitleTopToolbar OnNavigationClickListener navigate back to Wallpaper Fragment
         requireActivity().titleTopToolbar.setNavigationOnClickListener {
+            it.findNavController().popBackStack(R.id.wallpaperFragment, true)
             it.findNavController().navigate(R.id.wallpaperFragment)
         }
     }

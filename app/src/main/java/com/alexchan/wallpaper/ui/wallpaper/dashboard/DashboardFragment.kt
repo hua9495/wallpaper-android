@@ -81,28 +81,22 @@ class DashboardFragment : Fragment() {
                         searchView.clearFocus()
 
                         if (!query.isNullOrEmpty()) {
+                            Toast.makeText(activity, "Searching: $query", Toast.LENGTH_LONG).show()
                             MainActivity.searchQuery = query
                             MainActivity.searchStatus = true
-
-                            Toast.makeText(activity, "Searching: $query", Toast.LENGTH_LONG).show()
-                            val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-                            val navController = navHostFragment?.findNavController()
-                            navController?.navigate(R.id.wallpaperFragment)
+                        } else {
+                            MainActivity.searchQuery = ""
+                            MainActivity.searchStatus = false
                         }
+
+                        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                        val navController = navHostFragment?.findNavController()
+                        navController?.popBackStack(R.id.wallpaperFragment, true)
+                        navController?.navigate(R.id.wallpaperFragment)
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        if (!newText.isNullOrEmpty()) {
-                            Toast.makeText(activity, "Searching: $newText", Toast.LENGTH_SHORT).show()
-
-                            MainActivity.searchQuery = newText
-                            MainActivity.searchStatus = true
-
-                            val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-                            val navController = navHostFragment?.findNavController()
-                            navController?.navigate(R.id.wallpaperFragment)
-                        }
                         return true
                     }
                 })

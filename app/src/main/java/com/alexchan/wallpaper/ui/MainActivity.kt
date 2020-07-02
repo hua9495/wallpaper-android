@@ -68,6 +68,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val searchView = topToolbar.menu.findItem(R.id.search).actionView as SearchView
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+        val navController = navHostFragment?.findNavController()
+        val navCurrentDestination = navController?.currentDestination?.id
         when (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             true -> {
                 Log.d(TAG, "Drawer is Closed")
@@ -78,11 +81,16 @@ class MainActivity : AppCompatActivity() {
                     topToolbar.collapseActionView()
                     searchQuery = ""
                     searchStatus = false
-                    val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-                    val navController = navHostFragment?.findNavController()
+                    navController?.popBackStack(R.id.wallpaperFragment, true)
                     navController?.navigate(R.id.wallpaperFragment)
                 }
-                false -> super.onBackPressed()
+                false -> when (navController != null && navCurrentDestination == R.id.wallpaperDetailsFragment) {
+                    true -> {
+                        navController?.popBackStack(R.id.wallpaperFragment, true)
+                        navController?.navigate(R.id.wallpaperFragment)
+                    }
+                    false -> super.onBackPressed()
+                }
             }
         }
     }
