@@ -76,21 +76,15 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Drawer is Closed")
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-            false -> when (navController != null && navCurrentDestination == R.id.wallpaperDetailsFragment) {
+            false -> when (navController != null && navCurrentDestination == R.id.wallpaperFragment && !searchView.isIconified) {
                 true -> {
+                    topToolbar.collapseActionView()
+                    searchQuery = ""
+                    searchStatus = false
                     navController?.popBackStack(R.id.wallpaperFragment, true)
                     navController?.navigate(R.id.wallpaperFragment)
                 }
-                false -> when (!searchView.isIconified) {
-                    true -> {
-                        topToolbar.collapseActionView()
-                        searchQuery = ""
-                        searchStatus = false
-                        navController?.popBackStack(R.id.wallpaperFragment, true)
-                        navController?.navigate(R.id.wallpaperFragment)
-                    }
-                    false -> super.onBackPressed()
-                }
+                false -> super.onBackPressed()
             }
         }
     }
