@@ -1,3 +1,50 @@
 <resources>
+    <!-- App Name -->
     <string name="app_name">Wallpaper</string>
+
+    <!-- Wallpaper -->
+    <string name="unsplash">Unsplash</string>
+    <string name="wallpaper">Wallpaper</string>
+    <string name="wallpaper_fragment">Wallpaper Fragment</string>
+    <string name="home">Home</string>
+    <string name="dashboard">New</string>
+    <string name="follow">Follow</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="follow_fragment">Follow Fragment</string>
+    <string name="dashboard_fragment">New Fragment</string>
+    <string name="unsplash_api_status">Unsplash API Status</string>
+
+    <!-- Profile -->
+    <string name="profile">Profile</string>
+    <string name="profile_fragment">Profile Fragment</string>
+
+    <!-- Notification -->
+    <string name="notification">Notification</string>
+    <string name="notification_fragment">Notification Fragment</string>
+
+    <!-- Menu -->
+    <string name="other_fragments">Other Fragments</string>
+    <string name="search">Search</string>
+    <string name="content_description_search">Content Description Search</string>
+    <string name="more">More</string>
+    <string name="content_description_more">Content Description More</string>
+    <string name="change_display_view">Change Display View</string>
+    <string name="list_view">List View</string>
+    <string name="grid_view">Grid View</string>
+    <string name="staggered_grid_view">Staggered Grid View</string>
+    <string name="search_photos">Search Photos…</string>
+
+    <!-- Wallpaper Details Profile -->
+    <string name="userLocation">%s</string>
+    <string name="userFollow">Follow</string>
+    <string name="userTotalPhoto">%d Photo</string>
+    <string name="userTotalPhotos">%d Photos</string>
+    <string name="userTotalThousandOverPhotos">%.1fk Photos</string>
+    <string name="userTotalLiked">%d Liked</string>
+    <string name="userTotalThousandOverLiked">%.1fk Liked</string>
+    <string name="userTotalCollection">%d Collection</string>
+    <string name="userTotalCollections">%d Collections</string>
+    <string name="selected_dot_indicator">Selected dot indicator</string>
+    <string name="default_dot_indicator">Default dot indicator</string>
+
 </resources>

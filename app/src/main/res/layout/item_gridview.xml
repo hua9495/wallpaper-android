@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="photoProperty"
+            type="com.alexchan.wallpaper.model.unsplash.Photo" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/unsplashPhotoFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/unsplashPhotoMaterialCardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="8dp">
+
+            <ImageView
+                android:id="@+id/unsplashPhotoImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                app:imageUrl="@{photoProperty.photoUrl.raw}"
+                tools:src="@tools:sample/backgrounds/scenic"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+</layout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wallpaper_navigation"
+    app:startDestination="@id/wallpaperFragment">
+
+    <fragment
+        android:id="@+id/wallpaperFragment"
+        android:name="com.alexchan.wallpaper.ui.wallpaper.WallpaperFragment"
+        android:label="fragment_wallpaper"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_showDetail"
+            app:destination="@+id/wallpaperDetailsFragment"
+            app:popUpTo="@id/wallpaperDetailsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/wallpaperDetailsFragment"
+        android:name="com.alexchan.wallpaper.ui.wallpaper.dashboard.details.WallpaperDetailsFragment"
+        android:label="fragment_wallpaper_details"
+        tools:layout="@layout/fragment_wallpaper_details">
+        <argument
+            android:name="selectedPhoto"
+            app:argType="com.alexchan.wallpaper.model.unsplash.Photo" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.alexchan.wallpaper.ui.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.alexchan.wallpaper.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>

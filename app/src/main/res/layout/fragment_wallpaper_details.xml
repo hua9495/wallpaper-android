@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.wallpaper.dashboard.details.WallpaperDetailsFragment">
+
+    <data>
+        <variable
+            name="wallpaperDetailsViewModel"
+            type="com.alexchan.wallpaper.ui.wallpaper.dashboard.details.WallpaperDetailsViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/titleTopToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:title="@{wallpaperDetailsViewModel.userPhotoCollection.user.name}"
+                app:titleTextColor="@color/colorTitleText"
+                android:theme="@style/TitleUsernameBold"
+                app:menu="@menu/title_details_top_app_bar"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_ios"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                tools:title="@string/unsplash" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?android:attr/actionBarSize"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/userLocationTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:drawableStart="@drawable/ic_baseline_location_on"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:textAlignment="center"
+                    android:text="@{wallpaperDetailsViewModel.displayUserLocation}"
+                    android:textColor="#bdbdbd"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/userProfileImageView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_default="wrap"
+                    tools:text="@string/userLocation" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userProfileImageView"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    app:civ_border_color="@color/colorSecondaryVariant"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_baseline_cloud_off"
+                    app:userProfileImage="@{wallpaperDetailsViewModel.displayUserImage}"  />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/userFollowButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:textColor="#bdbdbd"
+                    android:clickable="false"
+                    android:text="@string/userFollow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/userProfileImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/dotOneImageView"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/selected_dot"
+                    android:backgroundTint="@android:color/black"
+                    android:contentDescription="@string/selected_dot_indicator"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/dotTwoImageView"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/default_dot"
+                    android:contentDescription="@string/default_dot_indicator"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/userTotalPhotoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@{wallpaperDetailsViewModel.displayUserTotalPhotos}"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:textColor="#8d8d8d"
+                    android:layout_weight="1"
+                    app:rippleColor="@color/colorSecondary"
+                    tools:text="@string/userTotalPhotos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@{wallpaperDetailsViewModel.displayUserTotalLiked}"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:textColor="#bdbdbd"
+                    android:clickable="false"
+                    android:layout_weight="1"
+                    tools:text="@string/userTotalLiked" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{wallpaperDetailsViewModel.displayUserTotalCollections}"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:textColor="#bdbdbd"
+                    android:clickable="false"
+                    android:layout_weight="1"
+                    tools:text="@string/userTotalCollections" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/photoDetailsGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    android:clipToPadding="false"
+                    app:layoutManager=
+                        "androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:spanCount="2"
+                    app:listDataDetails="@{wallpaperDetailsViewModel.userPhotos}"
+                    tools:itemCount="16"
+                    tools:listitem="@layout/item_details_gridview" />
+
+                <ImageView
+                    android:id="@+id/statusImage"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="center"
+                    app:unsplashApiStatus="@{wallpaperDetailsViewModel.status}"
+                    android:contentDescription="@string/unsplash_api_status" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
