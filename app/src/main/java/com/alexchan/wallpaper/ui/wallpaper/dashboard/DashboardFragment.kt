@@ -65,6 +65,9 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = DataBindingUtil.bind<FragmentDashboardBinding>(view)
 
+        // Set Layout Manager Programmatically
+        binding?.photosGrid?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
         // Experimental
         binding?.photosGrid?.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
