@@ -1,5 +1,7 @@
 package com.alexchan.wallpaper.ui.wallpaper.dashboard
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -21,11 +23,9 @@ import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
 import com.alexchan.wallpaper.ui.MainActivity
 import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : Fragment() {
-
-    // Hold a Reference to PhotosGrid Recylerview
-    val photosGridRecylerView by lazy { requireActivity().findViewById<RecyclerView>(R.id.photosGrid) }
 
     private val dashboardViewModel: DashboardViewModel by lazy {
         ViewModelProvider(this).get(DashboardViewModel::class.java)
@@ -65,8 +65,15 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = DataBindingUtil.bind<FragmentDashboardBinding>(view)
 
+        // Use Shared Preference to get user selected display view type
+        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences(DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE)
+
         // Set Layout Manager Programmatically
-        binding?.photosGrid?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        when (sharedPreferences.getInt(DISPLAY_VIEW_TYPE_KEY, 2)) {
+            0 -> binding?.photosGrid?.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+            1 -> binding?.photosGrid?.layoutManager = GridLayoutManager(requireContext(), 2)
+            else -> binding?.photosGrid?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
 
         // Experimental
         binding?.photosGrid?.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
@@ -116,22 +123,38 @@ class DashboardFragment : Fragment() {
             R.id.listView -> {
                 // Handle List View
                 //photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                photosGridRecylerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+                requireActivity().photosGrid.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+                getUserSelectedDisplayViewType(0)
                 true
             }
             R.id.gridView -> {
                 // Handle Grid View
                 //unsplashPhotoImageView.scaleType = ImageView.ScaleType.CENTER_CROP
                 //unsplashPhotoImageView.requestLayout()
-                photosGridRecylerView.layoutManager = GridLayoutManager(requireContext(), 2)
+                requireActivity().photosGrid.layoutManager = GridLayoutManager(requireContext(), 2)
+                getUserSelectedDisplayViewType(1)
                 true
             }
             R.id.staggeredGridView -> {
                 // Handle Staggered View
-                photosGridRecylerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                requireActivity().photosGrid.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                getUserSelectedDisplayViewType(2)
                 true
             }
             else -> false
         }
+    }
+
+    // Save user selection for display view type
+    private fun getUserSelectedDisplayViewType(displayViewType: Int) {
+        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences(DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt(DISPLAY_VIEW_TYPE_KEY, displayViewType)
+        editor.apply()
+    }
+
+    companion object {
+        var DISPLAY_VIEW_TYPE : String = "DISPLAY_VIEW_TYPE"
+        var DISPLAY_VIEW_TYPE_KEY : String = "display_view_type_key"
     }
 }
