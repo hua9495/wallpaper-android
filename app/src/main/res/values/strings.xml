@@ -35,7 +35,9 @@
     <string name="search_photos">Search Photos…</string>
 
     <!-- Wallpaper Details Profile -->
+    <string name="back_to_dashboard">Back to Dashboard</string>
     <string name="userLocation">%s</string>
+    <string name="userLocationUnknown">unknown</string>
     <string name="userFollow">Follow</string>
     <string name="userTotalPhoto">%d Photo</string>
     <string name="userTotalPhotos">%d Photos</string>
