@@ -34,8 +34,8 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
     val displayUserLocation = Transformations.map(userPhotoCollection) {
         Log.d("Display Location", it.user!!.location.toString())
         app.applicationContext.getString(R.string.userLocation,
-            when (it.user.isLocationNull) {
-                true -> "unknown"
+            when (it.user.isLocationNullorUnknown) {
+                true -> app.applicationContext.getString(R.string.userLocationUnknown)
                 false -> it.user!!.location
         })
     }
