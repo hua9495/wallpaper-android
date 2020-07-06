@@ -41,6 +41,12 @@
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
     </style>
 
+    <style name="TextLocationStyle">
+        <item name="android:textAppearance">?attr/textAppearanceButton</item>
+        <item name="android:textColor">@color/colorContentText</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
     <!-- To override existing color primary theme for selected Tab but keep existing style -->
     <style name="TabSelectedTheme" parent="AppTheme">
         <item name="colorPrimary">@color/colorTabSelected</item>
