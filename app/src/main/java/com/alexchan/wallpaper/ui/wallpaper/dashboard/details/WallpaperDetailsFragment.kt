@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -36,9 +38,18 @@ class WallpaperDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // To disable on swipe open navigation drawer gesture
+        requireActivity().drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
+
         // Set TitleTopToolbar OnNavigationClickListener navigate back to Wallpaper Fragment
         requireActivity().titleTopToolbar.setNavigationOnClickListener {
             it.findNavController().popBackStack(R.id.wallpaperDetailsFragment, true)
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // To enable on swipe open navigation drawer gesture
+        requireActivity().drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START)
     }
 }

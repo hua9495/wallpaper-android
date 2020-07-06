@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         // Set TopToolbar NavigationOnClickListener
         //topToolbar.setNavigationOnClickListener{openNavDrawer()}
 
-        // To disable on swipe open drawer gesture
-        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        // To disable on swipe open navigation drawer gesture
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
 
         // Update On Swipe Open Navigation Drawer Set Checked Item State
         updateOnSwipeOpenNavDrawer()
