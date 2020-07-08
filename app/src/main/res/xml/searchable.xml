@@ -2,4 +2,6 @@
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
     android:label="@string/search_activity"
     android:hint="@string/search_photos"
-    android:voiceSearchMode="showVoiceSearchButton|launchRecognizer" />
+    android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
+    android:searchSuggestAuthority="com.alexchan.wallpaper.database.SearchSuggestionProvider"
+    android:searchSuggestSelection=" ?" />
