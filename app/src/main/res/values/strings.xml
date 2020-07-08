@@ -60,4 +60,8 @@
     <string name="search_results_activity">Search Results Activity</string>
     <string name="search_results">Search Results</string>
 
+    <!-- Download Photo Fragment -->
+    <string name="download_photo">Download</string>
+    <string name="photo_taken_by_user_name">Photo taken by: %s</string>
+
 </resources>
