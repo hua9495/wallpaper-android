@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import com.alexchan.wallpaper.R
+import com.alexchan.wallpaper.ui.MainActivity
 import com.alexchan.wallpaper.ui.MainActivity.Companion.searchQuery
 import com.alexchan.wallpaper.ui.MainActivity.Companion.searchStatus
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,10 +25,24 @@ class SearchResultsActivity : AppCompatActivity() {
         val navController = navHostFragment?.findNavController()
         navController?.setGraph(R.navigation.search_wallpaper)
 
+        // Change topToolbar navigation icon
+        topToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios)
+        topToolbar.setNavigationOnClickListener {navigateBackToMainActivity()}
+        topToolbar.title = intent.getStringExtra(SearchManager.QUERY)
+
+        // To disable on swipe open navigation drawer gesture
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
+
         // Hide Bottom Navigation
         bottomNavigation.visibility = View.GONE
 
         handleIntent(intent)
+    }
+
+    private fun navigateBackToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
     }
 
     override fun onNewIntent(intent: Intent) {
