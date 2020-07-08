@@ -32,7 +32,6 @@
     <string name="list_view">List View</string>
     <string name="grid_view">Grid View</string>
     <string name="staggered_grid_view">Staggered Grid View</string>
-    <string name="search_photos">Search Photos…</string>
 
     <!-- Wallpaper Details Profile -->
     <string name="back_to_dashboard">Back to Dashboard</string>
@@ -48,5 +47,12 @@
     <string name="userTotalCollections">%d Collections</string>
     <string name="selected_dot_indicator">Selected dot indicator</string>
     <string name="default_dot_indicator">Default dot indicator</string>
+
+    <!-- Search Activity -->
+    <string name="search_activity">Search Activity</string>
+    <string name="search_photos">Search Photos…</string>
+
+    <!-- Search Results Activity -->
+    <string name="search_results_activity">Search Results Activity</string>
 
 </resources>
