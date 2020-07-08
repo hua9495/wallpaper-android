@@ -2,11 +2,13 @@ package com.alexchan.wallpaper.adapter.wallpaper
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alexchan.wallpaper.databinding.ItemGridviewBinding
 import com.alexchan.wallpaper.model.unsplash.Photo
+import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
 
 class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(
@@ -20,6 +22,12 @@ class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapt
     override fun onBindViewHolder(holder: PhotoGridAdapter.PhotoPropertyViewHolder, position: Int) {
         val photo = getItem(position)
         holder.itemView.setOnClickListener { onClickListener.onClick(photo) }
+        holder.itemView.setOnLongClickListener {
+            it?.findNavController()?.navigate(
+                WallpaperFragmentDirections.actionShowDownloadDetails(photo)
+            )
+            true
+        }
         holder.bind(photo)
     }
 
