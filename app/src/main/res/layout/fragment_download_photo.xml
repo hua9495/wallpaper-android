@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.wallpaper.dashboard.download.DownloadPhotoFragment">
+
+    <data>
+        <variable
+            name="photoModel"
+            type="com.alexchan.wallpaper.model.unsplash.Photo" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/photoMaterialCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="8dp">
+
+                <ImageView
+                    android:id="@+id/unsplashPhotoImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    app:imageUrl="@{photoModel.photoUrl.raw}"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/roboto"
+                android:textStyle="bold"
+                android:text="@{String.format(@string/photo_taken_by_user_name, photoModel.user.name)}"
+                tools:text="@string/photo_taken_by_user_name" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorContentText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/downloadPhotoButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorSecondary"
+                android:layout_margin="16dp"
+                android:text="@string/download_photo" />
+
+        </LinearLayout>
+    </ScrollView>
+</layout>
