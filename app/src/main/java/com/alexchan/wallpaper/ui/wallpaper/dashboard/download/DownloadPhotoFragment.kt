@@ -16,10 +16,10 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         val binding = FragmentDownloadPhotoBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        // Show data whether pass successfully
+        // Bind data from bundle to layout data variable
         binding.photoModel = DownloadPhotoFragmentArgs.fromBundle(requireArguments()).userSelectedPhoto
 
-        // Get the view and attach the listener
+        // Handle download photo button on click listener
         binding.downloadPhotoButton.setOnClickListener {downloadPhoto()}
 
         return binding.root
