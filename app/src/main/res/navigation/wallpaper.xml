@@ -11,11 +11,24 @@
         android:label="fragment_wallpaper"
         tools:layout="@layout/fragment_dashboard" >
         <action
+            android:id="@+id/action_showDownloadDetails"
+            app:destination="@+id/downloadPhotoFragment" />
+        <action
             android:id="@+id/action_showDetail"
             app:destination="@+id/wallpaperDetailsFragment"
             app:popUpTo="@id/wallpaperDetailsFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
+    <dialog
+        android:id="@+id/downloadPhotoFragment"
+        android:name="com.alexchan.wallpaper.ui.wallpaper.dashboard.download.DownloadPhotoFragment"
+        android:label="fragment_download_photo"
+        tools:layout="@layout/fragment_download_photo">
+        <argument
+            android:name="userSelectedPhoto"
+            app:argType="com.alexchan.wallpaper.model.unsplash.Photo" />
+    </dialog>
 
     <fragment
         android:id="@+id/wallpaperDetailsFragment"
