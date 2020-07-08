@@ -54,5 +54,6 @@
 
     <!-- Search Results Activity -->
     <string name="search_results_activity">Search Results Activity</string>
+    <string name="search_results">Search Results</string>
 
 </resources>
