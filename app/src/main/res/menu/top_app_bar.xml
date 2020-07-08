@@ -7,8 +7,7 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search"
         android:contentDescription="@string/content_description_search"
-        app:showAsAction="always|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/changeDisplayView"
