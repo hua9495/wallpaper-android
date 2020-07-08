@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <provider
+            android:authorities="com.alexchan.wallpaper.database.SearchSuggestionProvider"
+            android:name=".database.SearchSuggestionProvider" />
 
         <activity
             android:name=".ui.search.SearchActivity"
