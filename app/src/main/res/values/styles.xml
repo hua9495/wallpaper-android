@@ -41,6 +41,11 @@
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
     </style>
 
+    <style name="AppTheme.Search" parent="AppTheme">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+    </style>
+
     <style name="TextLocationStyle">
         <item name="android:textAppearance">?attr/textAppearanceButton</item>
         <item name="android:textColor">@color/colorContentText</item>
