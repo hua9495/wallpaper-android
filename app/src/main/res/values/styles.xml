@@ -44,6 +44,7 @@
     <style name="AppTheme.Search" parent="AppTheme">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
+        <item name="colorPrimary">@color/colorSecondaryVariant</item>
     </style>
 
     <style name="TextLocationStyle">
