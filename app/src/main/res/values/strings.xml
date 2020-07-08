@@ -51,6 +51,10 @@
     <!-- Search Activity -->
     <string name="search_activity">Search Activity</string>
     <string name="search_photos">Search Photos…</string>
+    <string name="clear_search_history">Clear Search History</string>
+    <string name="confirmation_clear_search_history">Are you sure you want to clear search history?\n\nThis action cannot be undo.</string>
+    <string name="confirmation_clear_search_history_yes">Yes</string>
+    <string name="confirmation_clear_search_history_no">No</string>
 
     <!-- Search Results Activity -->
     <string name="search_results_activity">Search Results Activity</string>
