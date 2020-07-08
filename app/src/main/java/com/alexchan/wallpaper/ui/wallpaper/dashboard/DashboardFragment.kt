@@ -1,14 +1,13 @@
 package com.alexchan.wallpaper.ui.wallpaper.dashboard
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,7 +19,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.adapter.wallpaper.PhotoGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
-import com.alexchan.wallpaper.ui.MainActivity
+import com.alexchan.wallpaper.ui.search.SearchActivity
 import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -82,42 +81,8 @@ class DashboardFragment : Fragment() {
     private fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.search -> {
-
-                // Handle Search View
-                val searchView = item.actionView as SearchView
-                searchView.queryHint = getString(R.string.search_photos)
-                searchView.isSubmitButtonEnabled = true
-
-                // Hide and UnHide changeDisplayView Menu Item
-                searchView.setOnQueryTextFocusChangeListener { v, hasFocus ->
-                    requireActivity().topToolbar.menu.findItem(R.id.changeDisplayView).isVisible = !hasFocus
-                }
-
-                // Handle Search Query
-                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String): Boolean {
-                        searchView.clearFocus()
-
-                        if (!query.isNullOrEmpty()) {
-                            Toast.makeText(activity, "Searching: $query", Toast.LENGTH_LONG).show()
-                            MainActivity.searchQuery = query
-                            MainActivity.searchStatus = true
-                        } else {
-                            MainActivity.searchQuery = ""
-                            MainActivity.searchStatus = false
-                        }
-
-                        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-                        val navController = navHostFragment?.findNavController()
-                        navController?.popBackStack(R.id.wallpaperFragment, true)
-                        navController?.navigate(R.id.wallpaperFragment)
-                        return true
-                    }
-
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        return true
-                    }
-                })
+                val intent = Intent(requireContext(), SearchActivity::class.java)
+                startActivity(intent)
                 true
             }
             R.id.listView -> {
