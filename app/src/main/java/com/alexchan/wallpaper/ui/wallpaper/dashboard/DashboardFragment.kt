@@ -88,6 +88,7 @@ class DashboardFragment : Fragment() {
         return when (item?.itemId) {
             R.id.search -> {
                 val intent = Intent(requireContext(), SearchActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
                 true
             }
