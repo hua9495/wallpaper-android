@@ -63,6 +63,7 @@
     <!-- Download Photo Fragment -->
     <string name="download_photo">Download</string>
     <string name="photo_taken_by_user_name">Photo taken by: %s</string>
+    <string name="open_downloaded_photo">Open Downloaded Photo In Gallery</string>
     <string name="photo_downloading">Downloading Image…</string>
     <string name="photo_download_successful">Download Image Successful!\n\nImage saved at: %s</string>
     <string name="photo_downloaded">This Image has already been Downloaded!\n\nImage saved at: %s</string>
