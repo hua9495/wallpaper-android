@@ -6,15 +6,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.FragmentActivity
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.databinding.FragmentDownloadPhotoBinding
 import com.alexchan.wallpaper.util.TAG
@@ -25,6 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
+import java.net.URL
 
 
 class DownloadPhotoFragment : BottomSheetDialogFragment() {
@@ -77,10 +81,8 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         if (file.exists()) {
             Toast.makeText(requireContext(), requireContext().getString(R.string.photo_downloaded, file), Toast.LENGTH_LONG).show()
         } else {
-            DownloadAndSaveImageTask(requireContext(), username, photoId)
-                .execute(photoUrl)
+            DownloadPhotoConfirmation(username, photoId, photoUrl, requireActivity(), requireContext()).execute(photoUrl)
         }
-        requireActivity().onBackPressed()
     }
 
     private fun openDownloadedPhoto(username: String?, photoId: String?) {
@@ -95,8 +97,26 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
 
     private fun deleteDownloadedPhoto(username: String?, photoId: String?) {
         if (file(username, photoId).exists()) {
-            file(username, photoId).delete()
-            requireActivity().onBackPressed()
+
+            val builder = AlertDialog.Builder(requireContext(), R.style.AlertDialog_Download)
+            builder.setMessage(getString(R.string.confirmation_delete_photo))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.confirmation_delete_photo_yes)) { _, _ ->
+                    // Delete downloaded photo
+                    file(username, photoId).delete()
+                    Toast.makeText(requireContext(), requireContext().getString(R.string.photo_deleted_successful), Toast.LENGTH_LONG).show()
+                    requireActivity().onBackPressed()
+                }
+                .setNegativeButton(getString(R.string.confirmation_delete_photo_no)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+
+            val alert = builder.create()
+            alert.setCanceledOnTouchOutside(true)
+            alert.setOnCancelListener { dialog ->
+                dialog.dismiss()
+            }
+            alert.show()
         }
     }
 
@@ -178,6 +198,53 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
             Toast.makeText(context, context.getString(R.string.photo_download_successful, filePath), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    class DownloadPhotoConfirmation(username: String?, photoId: String?, photoUrl: String, fragmentActivity: FragmentActivity, context: Context) : AsyncTask<String, Unit, Unit>() {
+
+        private var fileSizeInMB: Float = 0.0F
+        private var username: String? = username
+        private var photoId: String? = photoId
+        private var photoUrl: String = photoUrl
+        private var mFragmentActivity: FragmentActivity = fragmentActivity
+        private var mContext: Context = context
+
+        override fun doInBackground(vararg params: String?) {
+            // Get the image file size
+            val url = URL(params[0])
+            val urlConnection = url.openConnection()
+            urlConnection.connect()
+            val fileSize = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                urlConnection.contentLengthLong
+            } else {
+                urlConnection.contentLength
+            }
+            fileSizeInMB = (fileSize.toString().toLong()/1024f/1024f)
+        }
+
+        override fun onPostExecute(result: Unit?) {
+            super.onPostExecute(result)
+
+            val builder = AlertDialog.Builder(mContext, R.style.AlertDialog_Download)
+            builder.setMessage(mContext.getString(R.string.confirmation_download_photo, fileSizeInMB))
+                .setCancelable(false)
+                .setPositiveButton(mContext.getString(R.string.confirmation_download_photo_yes)) { _, _ ->
+                    // Download photo confirmation
+                    DownloadAndSaveImageTask(mContext, username, photoId)
+                        .execute(photoUrl)
+                    mFragmentActivity.onBackPressed()
+                }
+                .setNegativeButton(mContext.getString(R.string.confirmation_download_photo_no)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+
+            val alert = builder.create()
+            alert.setCanceledOnTouchOutside(true)
+            alert.setOnCancelListener { dialog ->
+                dialog.dismiss()
+            }
+            alert.show()
         }
     }
 }
