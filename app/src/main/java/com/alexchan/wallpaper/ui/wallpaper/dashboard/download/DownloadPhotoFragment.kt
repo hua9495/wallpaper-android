@@ -41,18 +41,27 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         val userSelectedPhoto = DownloadPhotoFragmentArgs.fromBundle(requireArguments()).userSelectedPhoto
         binding.photoModel = userSelectedPhoto
 
+        val username = userSelectedPhoto.user?.name
+        val photoId = userSelectedPhoto.id
+        val photoUrl = userSelectedPhoto.photoUrl.raw
+
         // Handle download photo button on click listener
-        binding.downloadPhotoButton.setOnClickListener {downloadPhoto(userSelectedPhoto.user?.name, userSelectedPhoto.id, userSelectedPhoto.photoUrl.raw)}
+        binding.downloadPhotoButton.setOnClickListener {downloadPhoto(username, photoId, photoUrl)}
 
         // Check if photo is downloaded
         // If it is, hide download button and
         // allow user to open downloaded photo in gallery
-        if (file(userSelectedPhoto.user?.name, userSelectedPhoto.id).exists()) {
+        if (file(username, photoId).exists()) {
             binding.downloadPhotoButton.visibility = View.GONE
-            binding.openDownloadedPhotoButton.visibility = View.VISIBLE
-            binding.openDownloadedPhotoButton.setOnClickListener {openDownloadedPhoto(userSelectedPhoto.user?.name, userSelectedPhoto.id)}
+            binding.openDownloadedPhotoButton.apply {
+                visibility = View.VISIBLE
+                setOnClickListener {openDownloadedPhoto(username, photoId)}
+            }
+            binding.deleteDownloadedPhotoButton.apply {
+                visibility = View.VISIBLE
+                setOnClickListener {deleteDownloadedPhoto(username, photoId)}
+            }
         }
-
         return binding.root
     }
 
@@ -82,6 +91,13 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         intent.setDataAndType(uri, "image/*")
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivity(intent)
+    }
+
+    private fun deleteDownloadedPhoto(username: String?, photoId: String?) {
+        if (file(username, photoId).exists()) {
+            file(username, photoId).delete()
+            requireActivity().onBackPressed()
+        }
     }
 
     // Request App Permission
