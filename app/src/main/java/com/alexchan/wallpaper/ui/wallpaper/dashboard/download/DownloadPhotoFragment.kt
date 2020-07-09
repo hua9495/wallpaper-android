@@ -2,6 +2,7 @@ package com.alexchan.wallpaper.ui.wallpaper.dashboard.download
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.AsyncTask
@@ -13,9 +14,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.databinding.FragmentDownloadPhotoBinding
-import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.util.TAG
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -37,28 +38,50 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         binding.lifecycleOwner = this
 
         // Bind data from bundle to layout data variable
-        binding.photoModel = DownloadPhotoFragmentArgs.fromBundle(requireArguments()).userSelectedPhoto
+        val userSelectedPhoto = DownloadPhotoFragmentArgs.fromBundle(requireArguments()).userSelectedPhoto
+        binding.photoModel = userSelectedPhoto
 
         // Handle download photo button on click listener
-        binding.downloadPhotoButton.setOnClickListener {downloadPhoto()}
+        binding.downloadPhotoButton.setOnClickListener {downloadPhoto(userSelectedPhoto.user?.name, userSelectedPhoto.id, userSelectedPhoto.photoUrl.raw)}
+
+        // Check if photo is downloaded
+        // If it is, hide download button and
+        // allow user to open downloaded photo in gallery
+        if (file(userSelectedPhoto.user?.name, userSelectedPhoto.id).exists()) {
+            binding.downloadPhotoButton.visibility = View.GONE
+            binding.openDownloadedPhotoButton.visibility = View.VISIBLE
+            binding.openDownloadedPhotoButton.setOnClickListener {openDownloadedPhoto(userSelectedPhoto.user?.name, userSelectedPhoto.id)}
+        }
 
         return binding.root
     }
 
-    private fun downloadPhoto() {
+    private fun file(username: String?, photoId: String?): File {
+        val path = requireContext().getExternalFilesDir(null)
+        return File(path, "$username-$photoId.jpg")
+    }
+
+    private fun downloadPhoto(username: String?, photoId: String?, photoUrl: String) {
         requestAppPermissions()
 
-        val selectedPhoto = DownloadPhotoFragmentArgs.fromBundle(requireArguments())
-        val path = requireContext().getExternalFilesDir(null)
-        val file = File(path, "${selectedPhoto.userSelectedPhoto.user?.name}-${selectedPhoto.userSelectedPhoto.id}.jpg")
-
+        val file = file(username, photoId)
         if (file.exists()) {
             Toast.makeText(requireContext(), requireContext().getString(R.string.photo_downloaded, file), Toast.LENGTH_LONG).show()
         } else {
-            DownloadAndSaveImageTask(requireContext(), selectedPhoto.userSelectedPhoto)
-                .execute(selectedPhoto.userSelectedPhoto.photoUrl.raw)
+            DownloadAndSaveImageTask(requireContext(), username, photoId)
+                .execute(photoUrl)
         }
         requireActivity().onBackPressed()
+    }
+
+    private fun openDownloadedPhoto(username: String?, photoId: String?) {
+        val file = file(username, photoId)
+        val intent = Intent()
+        intent.action = Intent.ACTION_VIEW
+        val uri = FileProvider.getUriForFile(requireContext(), "${this.requireContext().packageName}.provider", file)
+        intent.setDataAndType(uri, "image/*")
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        startActivity(intent)
     }
 
     // Request App Permission
@@ -90,10 +113,11 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    class DownloadAndSaveImageTask(context: Context, userSelectedPhoto: Photo) : AsyncTask<String, Unit, Unit>() {
+    class DownloadAndSaveImageTask(context: Context, username: String?, photoId: String?) : AsyncTask<String, Unit, Unit>() {
 
         private var mContext: WeakReference<Context> = WeakReference(context)
-        private var mUserSelectedPhoto: Photo = userSelectedPhoto
+        private var mUsername: String? = username
+        private var mPhotoId: String? = photoId
         private var context: Context = context
         private lateinit var filePath: File
 
@@ -116,7 +140,7 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
                     val path = it.getExternalFilesDir(null)
 
                     // Create a file to save the image
-                    val file = File(path, "${mUserSelectedPhoto.user?.name}-${mUserSelectedPhoto.id}.jpg")
+                    val file = File(path, "$mUsername-$mPhotoId.jpg")
                     filePath = file
 
                     val out = FileOutputStream(file)
