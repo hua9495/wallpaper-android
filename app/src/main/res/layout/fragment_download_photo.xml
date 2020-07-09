@@ -64,6 +64,15 @@
                 android:layout_margin="16dp"
                 android:text="@string/download_photo" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/openDownloadedPhotoButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorSecondary"
+                android:layout_margin="16dp"
+                android:visibility="gone"
+                android:text="@string/open_downloaded_photo" />
+
         </LinearLayout>
     </ScrollView>
 </layout>
