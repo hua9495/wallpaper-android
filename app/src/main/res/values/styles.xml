@@ -53,6 +53,10 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="AlertDialog.Download" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="colorPrimary">@color/colorSecondaryVariant</item>
+    </style>
+
     <!-- To override existing color primary theme for selected Tab but keep existing style -->
     <style name="TabSelectedTheme" parent="AppTheme">
         <item name="colorPrimary">@color/colorTabSelected</item>
