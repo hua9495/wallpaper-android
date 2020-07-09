@@ -49,8 +49,15 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         requestAppPermissions()
 
         val selectedPhoto = DownloadPhotoFragmentArgs.fromBundle(requireArguments())
-        DownloadAndSaveImageTask(requireContext(), selectedPhoto.userSelectedPhoto)
-            .execute(selectedPhoto.userSelectedPhoto.photoUrl.raw)
+        val path = requireContext().getExternalFilesDir(null)
+        val file = File(path, "${selectedPhoto.userSelectedPhoto.user?.name}-${selectedPhoto.userSelectedPhoto.id}.jpg")
+
+        if (file.exists()) {
+            Toast.makeText(requireContext(), requireContext().getString(R.string.photo_downloaded, file), Toast.LENGTH_LONG).show()
+        } else {
+            DownloadAndSaveImageTask(requireContext(), selectedPhoto.userSelectedPhoto)
+                .execute(selectedPhoto.userSelectedPhoto.photoUrl.raw)
+        }
         requireActivity().onBackPressed()
     }
 
@@ -125,15 +132,7 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
 
         override fun onPreExecute() {
             super.onPreExecute()
-            val path = context.getExternalFilesDir(null)
-            val file = File(path, "${mUserSelectedPhoto.user?.name}-${mUserSelectedPhoto.id}.jpg")
-
-            if (file.exists()) {
-                Toast.makeText(context, context.getString(R.string.photo_downloaded, file), Toast.LENGTH_LONG).show()
-                cancel(true)
-            } else {
-                Toast.makeText(context, context.getString(R.string.photo_downloading), Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText(context, context.getString(R.string.photo_downloading), Toast.LENGTH_SHORT).show()
         }
 
         override fun onPostExecute(result: Unit?) {
