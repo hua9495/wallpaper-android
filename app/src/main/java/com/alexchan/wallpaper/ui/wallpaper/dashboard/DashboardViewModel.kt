@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.service.web.UnsplashApi
-import com.alexchan.wallpaper.ui.MainActivity.Companion.searchQuery
+import com.alexchan.wallpaper.ui.MainActivity
+import com.alexchan.wallpaper.ui.MainActivity.Companion.pageNumber
+import com.alexchan.wallpaper.ui.MainActivity.Companion.paginationStatus
 import com.alexchan.wallpaper.ui.MainActivity.Companion.searchStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,10 +36,12 @@ class DashboardViewModel : ViewModel() {
         get() = _navigateToUserCollection
 
     init {
-        if (!searchStatus) {
-            getUnsplashPhotos()
-        } else {
-            getUnsplashSearchPhotos(searchQuery)
+        when (paginationStatus) {
+            true -> getUnsplashPagination(pageNumber)
+            false -> when (searchStatus) {
+                true -> getUnsplashSearchPhotos(MainActivity.searchQuery)
+                false -> getUnsplashPhotos()
+            }
         }
     }
     
@@ -90,6 +94,26 @@ class DashboardViewModel : ViewModel() {
                 }
 
             } catch (e: Exception) {
+                _status.value = UnsplashApiStatus.ERROR
+                _photoProperties.value = ArrayList()
+            }
+        }
+    }
+
+    fun getUnsplashPagination(pageNumber: Int) {
+        viewModelScope.launch(Dispatchers.Main) {
+            // Get List <Photo>
+            var getListUPaginationPhotosDeferred = UnsplashApi.retrofitService.getPaginationPhotosAsync(pageNumber)
+
+            try {
+                _status.value = UnsplashApiStatus.LOADING
+                var listPaginationPhotos = getListUPaginationPhotosDeferred.await()
+                _status.value = UnsplashApiStatus.DONE
+
+                if (listPaginationPhotos.size > 0) {
+                    _photoProperties.value = listPaginationPhotos
+                }
+            } catch (e: java.lang.Exception) {
                 _status.value = UnsplashApiStatus.ERROR
                 _photoProperties.value = ArrayList()
             }
