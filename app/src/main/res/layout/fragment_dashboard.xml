@@ -15,16 +15,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photosGrid"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/paginationLinearLayout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listData="@{dashboardViewModel.photoProperties}"
+            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            tools:spanCount="2"
+            tools:itemCount="16"
+            tools:listitem="@layout/item_gridview" />
+
+        <ImageView
+            android:id="@+id/statusImage"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            app:layout_constraintBottom_toBottomOf="@id/photosGrid"
+            app:layout_constraintLeft_toLeftOf="@id/photosGrid"
+            app:layout_constraintRight_toRightOf="@id/photosGrid"
+            app:layout_constraintTop_toTopOf="@id/photosGrid"
+            app:unsplashApiStatus="@{dashboardViewModel.status}"
+            android:contentDescription="@string/unsplash_api_status" />
+
         <LinearLayout
             android:id="@+id/paginationLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/photosGrid"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/photosGrid">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/previousButton"
@@ -60,32 +87,6 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photosGrid"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="8dp"
-            android:clipToPadding="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/paginationLinearLayout"
-            app:listData="@{dashboardViewModel.photoProperties}"
-            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            tools:spanCount="2"
-            tools:itemCount="16"
-            tools:listitem="@layout/item_gridview" />
-
-        <ImageView
-            android:id="@+id/statusImage"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:unsplashApiStatus="@{dashboardViewModel.status}"
-            android:contentDescription="@string/unsplash_api_status" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
