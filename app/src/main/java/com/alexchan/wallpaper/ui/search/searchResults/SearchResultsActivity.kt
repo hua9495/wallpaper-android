@@ -42,6 +42,7 @@ class SearchResultsActivity : AppCompatActivity() {
     }
 
     private fun navigateBackToMainActivity() {
+        MainActivity.showPagination = true
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
@@ -67,7 +68,20 @@ class SearchResultsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Searching: $query", Toast.LENGTH_LONG).show()
                 searchQuery = query
                 searchStatus = true
+
+                // Hide Pagination
+                MainActivity.showPagination = false
             }
         }
+    }
+
+    override fun onBackPressed() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+        val navController = navHostFragment?.findNavController()
+        val navCurrentDestination = navController?.currentDestination?.id
+        if (navCurrentDestination == R.id.dashboardSearchFragment) {
+            MainActivity.showPagination = true
+        }
+        super.onBackPressed()
     }
 }
