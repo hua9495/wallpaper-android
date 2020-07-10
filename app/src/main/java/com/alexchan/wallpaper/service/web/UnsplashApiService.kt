@@ -54,6 +54,10 @@ interface UnsplashApiService {
     @GET("search/photos")
     fun getSearchPhotosAsync(@Query("query") type: String):
             Deferred<Unsplash>
+
+    @GET("photos")
+    fun getPaginationPhotosAsync(@Query("page") type: Int):
+            Deferred<List<Photo>>
 }
 
 // Singleton too expensive to call - so call once
