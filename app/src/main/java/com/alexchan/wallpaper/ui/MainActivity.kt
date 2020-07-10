@@ -81,5 +81,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var searchQuery : String = ""
         var searchStatus : Boolean = false
+        var pageNumber : Int = 1
+        var paginationStatus : Boolean = false
+        var showPagination : Boolean = true
     }
 }
