@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -68,6 +69,9 @@ class DashboardFragment : Fragment() {
         MainActivity.searchQuery = ""
         MainActivity.searchStatus = false
 
+        // Reset Pagination
+        MainActivity.paginationStatus = true
+
         val binding = DataBindingUtil.bind<FragmentDashboardBinding>(view)
 
         // Use Shared Preference to get user selected display view type
@@ -82,11 +86,50 @@ class DashboardFragment : Fragment() {
 
         // Experimental
         binding?.photosGrid?.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+        // Add previous and next button on click listener and set current page number
+        if (MainActivity.showPagination) {
+            binding?.pageNumberTextView?.apply {
+                visibility = View.VISIBLE
+                text = MainActivity.pageNumber.toString()
+            }
+            binding?.previousButton?.apply {
+                visibility = View.VISIBLE
+                setOnClickListener {displayPreviousPage()}
+            }
+            binding?.nextButton?.apply {
+                visibility = View.VISIBLE
+                setOnClickListener {displayNextPage()}
+            }
+        }
+    }
+
+    private fun displayPreviousPage() {
+        MainActivity.paginationStatus = true
+        if (MainActivity.pageNumber > 1) {
+            MainActivity.pageNumber = MainActivity.pageNumber - 1
+            val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+            val navController = navHostFragment?.findNavController()
+            navController?.popBackStack(R.id.wallpaperFragment, true)
+            navController?.navigate(R.id.wallpaperFragment)
+        } else {
+            Toast.makeText(requireContext(), requireContext().getString(R.string.you_are_already_on_the_first_page), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun displayNextPage() {
+        MainActivity.paginationStatus = true
+        MainActivity.pageNumber = MainActivity.pageNumber + 1
+        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+        val navController = navHostFragment?.findNavController()
+        navController?.popBackStack(R.id.wallpaperFragment, true)
+        navController?.navigate(R.id.wallpaperFragment)
     }
 
     private fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.search -> {
+                MainActivity.paginationStatus = false
                 val intent = Intent(requireContext(), SearchActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
