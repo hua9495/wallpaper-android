@@ -33,6 +33,11 @@
     <string name="grid_view">Grid View</string>
     <string name="staggered_grid_view">Staggered Grid View</string>
 
+    <!-- Dashboard -->
+    <string name="previous">Previous</string>
+    <string name="you_are_already_on_the_first_page">You are already on the first page</string>
+    <string name="next">Next</string>
+
     <!-- Wallpaper Details Profile -->
     <string name="back_to_dashboard">Back to Dashboard</string>
     <string name="userLocation">%s</string>
