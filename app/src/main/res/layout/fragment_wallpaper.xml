@@ -10,10 +10,15 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/TabSelectedTheme"
+        style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
         app:tabIndicator="@drawable/selected_dot"
         app:tabIndicatorColor="@color/colorTabIndicator"
         app:tabIndicatorHeight="20dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        style="@style/UnsplashDayNightStyle" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

@@ -3,7 +3,6 @@ package com.alexchan.wallpaper.ui.search
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.Menu
@@ -12,7 +11,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.database.SearchSuggestionProvider
 import com.alexchan.wallpaper.ui.search.searchResults.SearchResultsActivity
@@ -23,8 +21,8 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        // Set action bar background color
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(applicationContext, R.color.colorPrimary)))
+        // Set action bar background color -> Replace with Dark Theme support
+        //supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(applicationContext, R.color.colorPrimary)))
 
         // Allow the user to clear recent search history
         clearSearchHistoryButton.setOnClickListener {clearSearchHistoryConfirmation()}

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -41,10 +41,12 @@
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
     </style>
 
-    <style name="AppTheme.Search" parent="AppTheme">
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">false</item>
-        <item name="colorPrimary">@color/colorSecondaryVariant</item>
+    <style name="AppTheme.Search" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:statusBarColor">@color/colorOnBackground</item>
     </style>
 
     <style name="TextLocationStyle">
@@ -58,8 +60,21 @@
     </style>
 
     <!-- To override existing color primary theme for selected Tab but keep existing style -->
+    <style name="UnsplashDayNightStyle" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
+    <style name="UnsplashToolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface" />
+    <style name="UnsplashToolbar.PopupTheme" parent="ThemeOverlay.AppCompat.DayNight" />
+    <style name="UnsplashPagination" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
+    <style name="TabSelectedStyle" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
+    <style name="CardView.DayNight" parent="CardView" />
+
     <style name="TabSelectedTheme" parent="AppTheme">
         <item name="colorPrimary">@color/colorTabSelected</item>
+    </style>
+
+    <style name="DrawerSelectedTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorTabSelected</item>
+        <item name="colorSurface">@color/colorOnSurface</item>
+        <item name="colorOnSurface">@color/colorSurface</item>
     </style>
 
     <style name="TitleUsernameBold" parent="AppTheme">
