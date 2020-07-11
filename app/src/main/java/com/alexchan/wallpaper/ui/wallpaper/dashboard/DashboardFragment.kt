@@ -113,21 +113,24 @@ class DashboardFragment : Fragment() {
         val networkManager = connectionManager?.activeNetwork
         val activeNetwork = connectionManager?.getNetworkCapabilities(networkManager)
         // Check if it is connected to mobile data or wifi and have valid connected access
-        if (activeNetwork != null &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-            MainActivity.paginationStatus = true
-            if (MainActivity.pageNumber > 1) {
-                MainActivity.pageNumber = MainActivity.pageNumber - 1
-                val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-                val navController = navHostFragment?.findNavController()
-                navController?.popBackStack(R.id.wallpaperFragment, true)
-                navController?.navigate(R.id.wallpaperFragment)
+        if (activeNetwork != null) {
+            if (activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                MainActivity.paginationStatus = true
+                if (MainActivity.pageNumber > 1) {
+                    MainActivity.pageNumber = MainActivity.pageNumber - 1
+                    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                    val navController = navHostFragment?.findNavController()
+                    navController?.popBackStack(R.id.wallpaperFragment, true)
+                    navController?.navigate(R.id.wallpaperFragment)
+                } else {
+                    Toast.makeText(requireContext(), requireContext().getString(R.string.you_are_already_on_the_first_page), Toast.LENGTH_LONG).show()
+                }
             } else {
-                Toast.makeText(requireContext(), requireContext().getString(R.string.you_are_already_on_the_first_page), Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), requireContext().getString(R.string.no_active_connection), Toast.LENGTH_LONG).show()
             }
         } else {
             Toast.makeText(requireContext(), requireContext().getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show()
@@ -140,18 +143,21 @@ class DashboardFragment : Fragment() {
         val networkManager = connectionManager?.activeNetwork
         val activeNetwork = connectionManager?.getNetworkCapabilities(networkManager)
         // Check if it is connected to mobile data or wifi and have valid connected access
-        if (activeNetwork != null &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) &&
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-            MainActivity.paginationStatus = true
-            MainActivity.pageNumber = MainActivity.pageNumber + 1
-            val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-            val navController = navHostFragment?.findNavController()
-            navController?.popBackStack(R.id.wallpaperFragment, true)
-            navController?.navigate(R.id.wallpaperFragment)
+        if (activeNetwork != null) {
+            if (activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                MainActivity.paginationStatus = true
+                MainActivity.pageNumber = MainActivity.pageNumber + 1
+                val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                val navController = navHostFragment?.findNavController()
+                navController?.popBackStack(R.id.wallpaperFragment, true)
+                navController?.navigate(R.id.wallpaperFragment)
+            } else {
+                Toast.makeText(requireContext(), requireContext().getString(R.string.no_active_connection), Toast.LENGTH_LONG).show()
+            }
         } else {
             Toast.makeText(requireContext(), requireContext().getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show()
         }
