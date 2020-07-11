@@ -37,6 +37,7 @@
     <string name="previous">Previous</string>
     <string name="you_are_already_on_the_first_page">You are already on the first page</string>
     <string name="next">Next</string>
+    <string name="no_active_connection">You are connected to the internet, but the internet connection is not valid, please try again later or restart your internet connection</string>
     <string name="no_internet_connection">No internet connection detected, please connect to the internet to proceed</string>
 
     <!-- Wallpaper Details Profile -->
