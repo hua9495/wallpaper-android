@@ -42,11 +42,16 @@
     </style>
 
     <style name="AppTheme.Search" parent="Theme.MaterialComponents.DayNight">
+        <item name="alertDialogTheme">@style/AppTheme.Search.AlertDialog</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="android:statusBarColor">@color/colorOnBackground</item>
+    </style>
+
+    <style name="AppTheme.Search.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="colorPrimary">@color/colorSecondaryVariant</item>
     </style>
 
     <style name="TextLocationStyle">
