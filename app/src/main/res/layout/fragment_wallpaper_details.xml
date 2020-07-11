@@ -237,6 +237,18 @@
                     app:unsplashApiStatus="@{wallpaperDetailsViewModel.status}"
                     android:contentDescription="@string/unsplash_api_status" />
 
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/statusLottieAnimationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="?attr/actionBarSize"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="1"
+                    unsplashApiStatusWithLottie="@{wallpaperDetailsViewModel.status}"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/no_internet_connection" />
+
             </FrameLayout>
 
         </LinearLayout>

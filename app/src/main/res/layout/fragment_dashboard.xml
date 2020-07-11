@@ -44,6 +44,22 @@
             app:unsplashApiStatus="@{dashboardViewModel.status}"
             android:contentDescription="@string/unsplash_api_status" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/statusLottieAnimationView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="1"
+            app:layout_constraintBottom_toBottomOf="@id/photosGrid"
+            app:layout_constraintLeft_toLeftOf="@id/photosGrid"
+            app:layout_constraintRight_toRightOf="@id/photosGrid"
+            app:layout_constraintTop_toTopOf="parent"
+            unsplashApiStatusWithLottie="@{dashboardViewModel.status}"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/no_internet_connection" />
+
         <LinearLayout
             android:id="@+id/paginationLinearLayout"
             android:layout_width="match_parent"
