@@ -29,7 +29,7 @@
                     app:title="@string/unsplash"
                     app:menu="@menu/top_app_bar"
                     app:navigationIcon="@drawable/ic_menu"
-                    app:popupTheme="@style/UnsplashToolbar.PopupTheme"
+                    app:popupTheme="@style/ThemeOverlay.MaterialComponents.DayNight"
                     style="@style/UnsplashToolbar" />
 
             </com.google.android.material.appbar.AppBarLayout>
