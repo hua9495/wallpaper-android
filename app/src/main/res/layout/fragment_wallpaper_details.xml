@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
-                    app:strokeColor="@color/colorContentText"
+                    app:strokeColor="@color/colorLightGrey"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:textColor="#bdbdbd"
                     android:clickable="false"
