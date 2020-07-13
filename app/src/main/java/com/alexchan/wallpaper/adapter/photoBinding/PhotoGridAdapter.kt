@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.wallpaper
+package com.alexchan.wallpaper.adapter.photoBinding
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,16 +10,21 @@ import com.alexchan.wallpaper.databinding.ItemGridviewBinding
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
 
-class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(DiffCallback) {
+class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(
+    DiffCallback
+) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PhotoGridAdapter.PhotoPropertyViewHolder {
-        return PhotoPropertyViewHolder(ItemGridviewBinding.inflate(
-            LayoutInflater.from(parent.context)))
+    ): PhotoPropertyViewHolder {
+        return PhotoPropertyViewHolder(
+            ItemGridviewBinding.inflate(
+                LayoutInflater.from(parent.context)
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: PhotoGridAdapter.PhotoPropertyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PhotoPropertyViewHolder, position: Int) {
         val photo = getItem(position)
         holder.itemView.setOnClickListener { onClickListener.onClick(photo) }
         holder.itemView.setOnLongClickListener {

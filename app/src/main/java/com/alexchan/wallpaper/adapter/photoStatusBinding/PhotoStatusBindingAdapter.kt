@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.wallpaper
+package com.alexchan.wallpaper.adapter.photoStatusBinding
 
 import android.view.View
 import android.widget.ImageView

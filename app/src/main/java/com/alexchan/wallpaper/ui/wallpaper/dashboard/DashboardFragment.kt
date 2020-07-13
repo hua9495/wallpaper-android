@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
-import com.alexchan.wallpaper.adapter.wallpaper.PhotoGridAdapter
+import com.alexchan.wallpaper.adapter.photoBinding.PhotoGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
 import com.alexchan.wallpaper.ui.MainActivity
 import com.alexchan.wallpaper.ui.search.SearchActivity
