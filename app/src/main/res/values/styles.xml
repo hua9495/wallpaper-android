@@ -72,6 +72,13 @@
     <style name="TabSelectedStyle" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
     <style name="CardView.DayNight" parent="CardView" />
 
+    <style name="UnsplashDrawer" parent="Widget.MaterialComponents.NavigationView">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="itemIconTint">@color/navigation_item_icon_tint_drawer</item>
+        <item name="itemShapeFillColor">@color/navigation_item_drawer_color</item>
+        <item name="itemTextColor">@color/navigation_item_text_drawer_color</item>
+    </style>
+
     <style name="TabSelectedTheme" parent="AppTheme">
         <item name="colorPrimary">@color/colorTabSelected</item>
     </style>
