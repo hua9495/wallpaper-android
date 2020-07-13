@@ -5,7 +5,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.alexchan.wallpaper.R
-import com.alexchan.wallpaper.ui.wallpaper.dashboard.UnsplashApiStatus
+import com.alexchan.wallpaper.ui.wallpaper.dashboard.dashboard.UnsplashApiStatus
 
 @BindingAdapter("unsplashApiStatus")
 fun bindStatus(statusImageView: ImageView, status: UnsplashApiStatus?) {

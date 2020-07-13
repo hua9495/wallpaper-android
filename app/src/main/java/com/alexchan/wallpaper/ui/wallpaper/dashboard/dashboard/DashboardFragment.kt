@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.ui.wallpaper.dashboard
+package com.alexchan.wallpaper.ui.wallpaper.dashboard.dashboard
 
 import android.content.Context
 import android.content.Intent
@@ -22,9 +22,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.adapter.photoBinding.PhotoGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
-import com.alexchan.wallpaper.ui.MainActivity
-import com.alexchan.wallpaper.ui.search.SearchActivity
-import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
+import com.alexchan.wallpaper.ui.mainActivity.MainActivity
+import com.alexchan.wallpaper.ui.search.searchActivity.SearchActivity
+import com.alexchan.wallpaper.ui.wallpaper.wallpaper.WallpaperFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
@@ -78,7 +78,8 @@ class DashboardFragment : Fragment() {
         val binding = DataBindingUtil.bind<FragmentDashboardBinding>(view)
 
         // Use Shared Preference to get user selected display view type
-        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences(DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences(
+            DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE)
 
         // Set Layout Manager Programmatically
         when (sharedPreferences.getInt(DISPLAY_VIEW_TYPE_KEY, 2)) {
@@ -199,7 +200,8 @@ class DashboardFragment : Fragment() {
 
     // Save user selection for display view type
     private fun getUserSelectedDisplayViewType(displayViewType: Int) {
-        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences(DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences(
+            DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt(DISPLAY_VIEW_TYPE_KEY, displayViewType)
         editor.apply()

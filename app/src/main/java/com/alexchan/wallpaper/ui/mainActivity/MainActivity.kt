@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.ui
+package com.alexchan.wallpaper.ui.mainActivity
 
 import android.os.Bundle
 import android.util.Log

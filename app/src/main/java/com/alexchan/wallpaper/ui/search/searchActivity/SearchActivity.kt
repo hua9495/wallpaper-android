@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.ui.search
+package com.alexchan.wallpaper.ui.search.searchActivity
 
 import android.app.SearchManager
 import android.content.ComponentName

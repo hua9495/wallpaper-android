@@ -1,11 +1,11 @@
-package com.alexchan.wallpaper.ui.wallpaper
+package com.alexchan.wallpaper.ui.wallpaper.wallpaper
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alexchan.wallpaper.R
-import com.alexchan.wallpaper.ui.wallpaper.dashboard.DashboardFragment
+import com.alexchan.wallpaper.ui.wallpaper.dashboard.dashboard.DashboardFragment
 import com.alexchan.wallpaper.ui.wallpaper.follow.FollowFragment
 import com.alexchan.wallpaper.ui.wallpaper.home.HomeFragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,7 +17,10 @@ class WallpaperFragment : Fragment(R.layout.fragment_wallpaper) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewPagerAdapter = WallpaperPagerAdapter(this)
+        viewPagerAdapter =
+            WallpaperPagerAdapter(
+                this
+            )
         setupViewPager()
     }
 
@@ -48,7 +51,8 @@ class WallpaperFragment : Fragment(R.layout.fragment_wallpaper) {
         }
 
 
-        override fun getItemCount(): Int = TOTAL_FRAGMENT_SCREEN
+        override fun getItemCount(): Int =
+            TOTAL_FRAGMENT_SCREEN
 
         companion object {
             internal const val FRAGMENT_OFF_SCREEN_PAGE_LIMIT = 3
