@@ -67,7 +67,7 @@
     <!-- To override existing color primary theme for selected Tab but keep existing style -->
     <style name="UnsplashDayNightStyle" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
     <style name="UnsplashToolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface" />
-    <style name="UnsplashToolbar.PopupTheme" parent="ThemeOverlay.AppCompat.DayNight" />
+    <style name="ThemeOverlay.MaterialComponents.DayNight" parent="ThemeOverlay.MaterialComponents.Light" />
     <style name="UnsplashPagination" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
     <style name="TabSelectedStyle" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
     <style name="CardView.DayNight" parent="CardView" />
