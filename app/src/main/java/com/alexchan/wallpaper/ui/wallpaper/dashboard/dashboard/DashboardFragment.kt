@@ -106,6 +106,40 @@ class DashboardFragment : Fragment() {
                 setOnClickListener {displayNextPage()}
             }
         }
+
+        binding?.photosGridSwipeRefresh?.isEnabled = false
+        // Handle Swipe Refresh Layout
+        if (MainActivity.showPagination) {
+            binding?.photosGridSwipeRefresh?.isEnabled = true
+            binding?.photosGridSwipeRefresh?.setOnRefreshListener {refreshDashboard()}
+        }
+    }
+
+    private fun refreshDashboard() {
+        // Get current internet connection status
+        val connectionManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val networkManager = connectionManager?.activeNetwork
+        val activeNetwork = connectionManager?.getNetworkCapabilities(networkManager)
+        // Check if it is connected to mobile data or wifi and have valid connected access
+        if (activeNetwork != null) {
+            if (activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                photosGridSwipeRefresh.isRefreshing = false
+                val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                val navController = navHostFragment?.findNavController()
+                navController?.popBackStack(R.id.wallpaperFragment, true)
+                navController?.navigate(R.id.wallpaperFragment)
+            } else {
+                photosGridSwipeRefresh.isRefreshing = false
+                Toast.makeText(requireContext(), requireContext().getString(R.string.no_active_connection), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            photosGridSwipeRefresh.isRefreshing = false
+            Toast.makeText(requireContext(), requireContext().getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun displayPreviousPage() {
