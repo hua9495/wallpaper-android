@@ -3,6 +3,7 @@ package com.alexchan.wallpaper.ui.wallpaper.dashboard.dashboard
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
@@ -110,8 +111,20 @@ class DashboardFragment : Fragment() {
         binding?.photosGridSwipeRefresh?.isEnabled = false
         // Handle Swipe Refresh Layout
         if (MainActivity.showPagination) {
-            binding?.photosGridSwipeRefresh?.isEnabled = true
-            binding?.photosGridSwipeRefresh?.setOnRefreshListener {refreshDashboard()}
+            binding?.photosGridSwipeRefresh?.apply {
+                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        setProgressBackgroundColorSchemeResource(R.color.colorOnPrimary)
+                        setColorSchemeResources(R.color.colorPrimary)
+                    }
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                        setProgressBackgroundColorSchemeResource(R.color.colorPrimary)
+                        setColorSchemeResources(R.color.colorOnPrimary)
+                    }
+                }
+                isEnabled = true
+                setOnRefreshListener {refreshDashboard()}
+            }
         }
     }
 
