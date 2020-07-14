@@ -15,32 +15,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photosGrid"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/photosGridSwipeRefresh"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:clipToPadding="false"
-            app:layout_constraintBottom_toTopOf="@id/paginationLinearLayout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listData="@{dashboardViewModel.photoProperties}"
-            style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
-            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            tools:spanCount="2"
-            tools:itemCount="16"
-            tools:listitem="@layout/item_gridview" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/paginationLinearLayout">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photosGrid"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toTopOf="@id/paginationLinearLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:listData="@{dashboardViewModel.photoProperties}"
+                style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
+                tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                tools:spanCount="2"
+                tools:itemCount="16"
+                tools:listitem="@layout/item_gridview" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ImageView
             android:id="@+id/statusImage"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            app:layout_constraintBottom_toBottomOf="@id/photosGrid"
-            app:layout_constraintLeft_toLeftOf="@id/photosGrid"
-            app:layout_constraintRight_toRightOf="@id/photosGrid"
-            app:layout_constraintTop_toTopOf="@id/photosGrid"
+            app:layout_constraintBottom_toBottomOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintLeft_toLeftOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintRight_toRightOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintTop_toTopOf="@id/photosGridSwipeRefresh"
             app:unsplashApiStatus="@{dashboardViewModel.status}"
             android:contentDescription="@string/unsplash_api_status" />
 
@@ -51,9 +62,9 @@
             android:layout_marginBottom="?attr/actionBarSize"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintWidth_percent="1"
-            app:layout_constraintBottom_toBottomOf="@id/photosGrid"
-            app:layout_constraintLeft_toLeftOf="@id/photosGrid"
-            app:layout_constraintRight_toRightOf="@id/photosGrid"
+            app:layout_constraintBottom_toBottomOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintLeft_toLeftOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintRight_toRightOf="@id/photosGridSwipeRefresh"
             app:layout_constraintTop_toTopOf="parent"
             unsplashApiStatusWithLottie="@{dashboardViewModel.status}"
             app:lottie_autoPlay="true"
@@ -67,7 +78,7 @@
             android:orientation="horizontal"
             android:weightSum="2"
             android:paddingTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/photosGrid"
+            app:layout_constraintTop_toBottomOf="@id/photosGridSwipeRefresh"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
