@@ -24,6 +24,7 @@
     <color name="colorContentText">#bdbdbd</color>
 
     <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
     <color name="colorDarkGrey">#8d8d8d</color>
     <color name="colorLightGrey">#bdbdbd</color>
 </resources>
