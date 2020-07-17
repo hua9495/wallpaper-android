@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.ui.search.searchResults
+package com.alexchan.wallpaper.ui.search.search_results
 
 import android.app.SearchManager
 import android.content.Intent
@@ -12,9 +12,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.database.SearchSuggestionProvider
-import com.alexchan.wallpaper.ui.mainActivity.MainActivity
-import com.alexchan.wallpaper.ui.mainActivity.MainActivity.Companion.searchQuery
-import com.alexchan.wallpaper.ui.mainActivity.MainActivity.Companion.searchStatus
+import com.alexchan.wallpaper.ui.MainActivity
+import com.alexchan.wallpaper.ui.MainActivity.Companion.searchQuery
+import com.alexchan.wallpaper.ui.MainActivity.Companion.searchStatus
 import kotlinx.android.synthetic.main.activity_main.*
 
 class SearchResultsActivity : AppCompatActivity() {

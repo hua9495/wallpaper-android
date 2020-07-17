@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.photoBinding
+package com.alexchan.wallpaper.adapter.dashboard
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView

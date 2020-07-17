@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.ui.wallpaper.dashboard.dashboard
+package com.alexchan.wallpaper.ui.wallpaper.dashboard
 
 import android.content.Context
 import android.content.Intent
@@ -21,11 +21,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
-import com.alexchan.wallpaper.adapter.photoBinding.PhotoGridAdapter
+import com.alexchan.wallpaper.adapter.dashboard.PhotoGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
-import com.alexchan.wallpaper.ui.mainActivity.MainActivity
-import com.alexchan.wallpaper.ui.search.searchActivity.SearchActivity
-import com.alexchan.wallpaper.ui.wallpaper.wallpaper.WallpaperFragmentDirections
+import com.alexchan.wallpaper.ui.MainActivity
+import com.alexchan.wallpaper.ui.search.SearchActivity
+import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 

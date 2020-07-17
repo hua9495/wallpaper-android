@@ -1,11 +1,11 @@
-package com.alexchan.wallpaper.ui.wallpaper.wallpaper
+package com.alexchan.wallpaper.ui.wallpaper
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alexchan.wallpaper.R
-import com.alexchan.wallpaper.ui.wallpaper.dashboard.dashboard.DashboardFragment
+import com.alexchan.wallpaper.ui.wallpaper.dashboard.DashboardFragment
 import com.alexchan.wallpaper.ui.wallpaper.follow.FollowFragment
 import com.alexchan.wallpaper.ui.wallpaper.home.HomeFragment
 import com.google.android.material.tabs.TabLayoutMediator

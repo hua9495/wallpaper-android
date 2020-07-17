@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.mainActivity.MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,23 +39,23 @@
             android:name=".database.SearchSuggestionProvider" />
 
         <activity
-            android:name=".ui.search.searchActivity.SearchActivity"
+            android:name=".ui.search.SearchActivity"
             android:label="@string/search_activity"
             android:theme="@style/AppTheme.Search">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.mainActivity.MainActivity" />
+                android:value=".ui.MainActivity" />
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name=".ui.search.searchResults.SearchResultsActivity"
+        <activity android:name=".ui.search.search_results.SearchResultsActivity"
             android:label="@string/search_results_activity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.mainActivity.MainActivity" />
+                android:value=".ui.MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"
                     android:launchMode="singleTop" />

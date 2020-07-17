@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.photoBindingAdapters
+package com.alexchan.wallpaper.adapter.common
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

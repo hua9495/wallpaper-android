@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.photoBinding
+package com.alexchan.wallpaper.adapter.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alexchan.wallpaper.databinding.ItemGridviewBinding
 import com.alexchan.wallpaper.model.unsplash.Photo
-import com.alexchan.wallpaper.ui.wallpaper.wallpaper.WallpaperFragmentDirections
+import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
 
 class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(
     DiffCallback

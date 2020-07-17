@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.ui.wallpaper.dashboard.dashboard
+package com.alexchan.wallpaper.ui.wallpaper.dashboard
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.service.web.UnsplashApi
-import com.alexchan.wallpaper.ui.mainActivity.MainActivity
-import com.alexchan.wallpaper.ui.mainActivity.MainActivity.Companion.pageNumber
-import com.alexchan.wallpaper.ui.mainActivity.MainActivity.Companion.paginationStatus
-import com.alexchan.wallpaper.ui.mainActivity.MainActivity.Companion.searchStatus
+import com.alexchan.wallpaper.ui.MainActivity
+import com.alexchan.wallpaper.ui.MainActivity.Companion.pageNumber
+import com.alexchan.wallpaper.ui.MainActivity.Companion.paginationStatus
+import com.alexchan.wallpaper.ui.MainActivity.Companion.searchStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

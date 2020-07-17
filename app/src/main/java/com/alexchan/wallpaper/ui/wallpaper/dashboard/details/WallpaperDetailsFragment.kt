@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.alexchan.wallpaper.R
-import com.alexchan.wallpaper.adapter.photoDetailsBinding.PhotoDetailsGridAdapter
+import com.alexchan.wallpaper.adapter.dashboard_details.PhotoDetailsGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentWallpaperDetailsBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_wallpaper_details.*

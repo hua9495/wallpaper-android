@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.photoDetailsBinding
+package com.alexchan.wallpaper.adapter.dashboard_details
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

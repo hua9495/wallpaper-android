@@ -6,7 +6,7 @@ import androidx.lifecycle.*
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.service.web.UnsplashApi
-import com.alexchan.wallpaper.ui.wallpaper.dashboard.dashboard.UnsplashApiStatus
+import com.alexchan.wallpaper.ui.wallpaper.dashboard.UnsplashApiStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.math.RoundingMode

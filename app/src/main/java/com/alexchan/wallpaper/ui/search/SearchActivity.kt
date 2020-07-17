@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.ui.search.searchActivity
+package com.alexchan.wallpaper.ui.search
 
 import android.app.SearchManager
 import android.content.ComponentName
@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.database.SearchSuggestionProvider
-import com.alexchan.wallpaper.ui.search.searchResults.SearchResultsActivity
+import com.alexchan.wallpaper.ui.search.search_results.SearchResultsActivity
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.userProfileImageBinding
+package com.alexchan.wallpaper.adapter.dashboard_details
 
 import androidx.databinding.BindingAdapter
 import com.alexchan.wallpaper.R
