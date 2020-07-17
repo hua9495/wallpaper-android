@@ -1,7 +1,8 @@
 package com.alexchan.wallpaper.adapter.common
 
-import android.view.View
 import android.widget.ImageView
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.alexchan.wallpaper.R
@@ -11,16 +12,16 @@ import com.alexchan.wallpaper.ui.wallpaper.dashboard.UnsplashApiStatus
 fun bindStatus(statusImageView: ImageView, status: UnsplashApiStatus?) {
     when (status) {
         UnsplashApiStatus.LOADING -> {
-            statusImageView.visibility = View.VISIBLE
+            statusImageView.isVisible = true
             statusImageView.setImageResource(R.drawable.loading_animation_api_status)
         }
         UnsplashApiStatus.ERROR -> {
             //statusImageView.visibility = View.VISIBLE
             //statusImageView.setImageResource(R.drawable.ic_baseline_cloud_off)
-            statusImageView.visibility = View.GONE
+            statusImageView.isGone = true
         }
         UnsplashApiStatus.DONE -> {
-            statusImageView.visibility = View.GONE
+            statusImageView.isGone = true
         }
     }
 }
@@ -29,13 +30,13 @@ fun bindStatus(statusImageView: ImageView, status: UnsplashApiStatus?) {
 fun bindStatusWithLottie(statusLottieAnimationView: LottieAnimationView, status: UnsplashApiStatus?) {
     when (status) {
         UnsplashApiStatus.LOADING -> {
-            statusLottieAnimationView.visibility = View.GONE
+            statusLottieAnimationView.isGone = true
         }
         UnsplashApiStatus.ERROR -> {
-            statusLottieAnimationView.visibility = View.VISIBLE
+            statusLottieAnimationView.isVisible = true
         }
         UnsplashApiStatus.DONE -> {
-            statusLottieAnimationView.visibility = View.GONE
+            statusLottieAnimationView.isGone = true
         }
     }
 }
