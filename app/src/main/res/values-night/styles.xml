@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -21,6 +22,8 @@
         <item name="android:statusBarColor">@color/colorBlack</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
+
     <style name="ThemeOverlay.MaterialComponents.DayNight" parent="ThemeOverlay.MaterialComponents.Dark" />
+
     <style name="UnsplashDrawer" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
 </resources>
