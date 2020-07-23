@@ -10,9 +10,10 @@ import com.alexchan.wallpaper.databinding.ItemDetailsGridviewBinding
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.ui.wallpaper.dashboard.details.WallpaperDetailsFragmentDirections
 
-class PhotoDetailsGridAdapter : ListAdapter<Photo, PhotoDetailsGridAdapter.PhotoDetailsPropertyViewHolder>(
-    DiffCallback
-) {
+class PhotoDetailsGridAdapter :
+    ListAdapter<Photo, PhotoDetailsGridAdapter.PhotoDetailsPropertyViewHolder>(
+        DiffCallback
+    ) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -50,7 +51,7 @@ class PhotoDetailsGridAdapter : ListAdapter<Photo, PhotoDetailsGridAdapter.Photo
         }
     }
 
-    class PhotoDetailsPropertyViewHolder(private var binding: ItemDetailsGridviewBinding):
+    class PhotoDetailsPropertyViewHolder(private var binding: ItemDetailsGridviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(userPhotos: Photo) {
             binding.photoDetails = userPhotos

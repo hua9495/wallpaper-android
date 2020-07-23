@@ -10,9 +10,10 @@ import com.alexchan.wallpaper.databinding.ItemGridviewBinding
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
 
-class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(
-    DiffCallback
-) {
+class PhotoGridAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(
+        DiffCallback
+    ) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -51,8 +52,8 @@ class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapt
         }
     }
 
-    class PhotoPropertyViewHolder(private var binding: ItemGridviewBinding):
-            RecyclerView.ViewHolder(binding.root) {
+    class PhotoPropertyViewHolder(private var binding: ItemGridviewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: Photo) {
             binding.photoProperty = photo
             binding.executePendingBindings()

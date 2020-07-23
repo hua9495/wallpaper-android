@@ -27,7 +27,10 @@ fun bindStatus(statusImageView: ImageView, status: UnsplashApiStatus?) {
 }
 
 @BindingAdapter("unsplashApiStatusWithLottie")
-fun bindStatusWithLottie(statusLottieAnimationView: LottieAnimationView, status: UnsplashApiStatus?) {
+fun bindStatusWithLottie(
+    statusLottieAnimationView: LottieAnimationView,
+    status: UnsplashApiStatus?
+) {
     when (status) {
         UnsplashApiStatus.LOADING -> {
             statusLottieAnimationView.isGone = true

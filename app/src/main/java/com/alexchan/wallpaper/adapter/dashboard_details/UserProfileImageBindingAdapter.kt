@@ -11,9 +11,11 @@ fun bindUserProfileImage(view: CircleImageView, url: String?) {
     url?.let {
         Glide.with(view.context)
             .load(url)
-            .apply(RequestOptions()
+            .apply(
+                RequestOptions()
                     .placeholder(R.drawable.placeholder_user)
-                    .error(R.drawable.ic_baseline_broken_image))
+                    .error(R.drawable.ic_baseline_broken_image)
+            )
             .into(view)
     }
 }
