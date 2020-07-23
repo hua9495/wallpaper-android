@@ -9,7 +9,7 @@
         android:id="@+id/wallpaperFragment"
         android:name="com.alexchan.wallpaper.ui.wallpaper.WallpaperFragment"
         android:label="fragment_wallpaper"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_showDownloadDetails"
             app:destination="@+id/downloadPhotoFragment" />
