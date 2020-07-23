@@ -33,11 +33,13 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
 
     val displayUserLocation = Transformations.map(userPhotoCollection) {
         Log.d("Display Location", it.user!!.location.toString())
-        app.applicationContext.getString(R.string.userLocation,
+        app.applicationContext.getString(
+            R.string.userLocation,
             when (it.user.isLocationNullorUnknown) {
                 true -> app.applicationContext.getString(R.string.userLocationUnknown)
                 false -> it.user!!.location
-        })
+            }
+        )
     }
 
     val displayUserImage = Transformations.map(userPhotoCollection) {
@@ -59,7 +61,8 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
                     convertThousandRoundingToOneDecimal((it.user!!.totalPhotos).toFloat())
                 }
                 false -> it.user!!.totalPhotos
-            })
+            }
+        )
     }
 
     val displayUserTotalLiked = Transformations.map(userPhotoCollection) {
@@ -68,20 +71,23 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
             when (it.user.isTotalLikesOverThousand) {
                 true -> R.string.userTotalThousandOverLiked
                 false -> R.string.userTotalLiked
-        }, when (it.user.isTotalLikesOverThousand) {
+            }, when (it.user.isTotalLikesOverThousand) {
                 true -> {
                     convertThousandRoundingToOneDecimal((it.user!!.totalLikes).toFloat())
                 }
                 false -> it.user!!.totalLikes
-            })
+            }
+        )
     }
 
     val displayUserTotalCollections = Transformations.map(userPhotoCollection) {
         Log.d("Display Collections", it.user!!.totalCollections.toString())
-        app.applicationContext.getString(when (it.user!!.isTotalCollectionEqualOne) {
-            true -> R.string.userTotalCollection
-            false -> R.string.userTotalCollections
-        }, it.user!!.totalCollections)
+        app.applicationContext.getString(
+            when (it.user!!.isTotalCollectionEqualOne) {
+                true -> R.string.userTotalCollection
+                false -> R.string.userTotalCollections
+            }, it.user!!.totalCollections
+        )
     }
 
     // Formula to Convert Likes and Photos which is over a Thousand to 1 decimal place
@@ -120,7 +126,7 @@ class WallpaperDetailsViewModel(userPhoto: Photo, app: Application) : AndroidVie
                     _userPhotos.value = userPhotoLists
 
                     // For testing purposes
-                    userPhotoLists.forEach{
+                    userPhotoLists.forEach {
                         Log.d("List Photos", it.photoUrl.raw)
                     }
                 }

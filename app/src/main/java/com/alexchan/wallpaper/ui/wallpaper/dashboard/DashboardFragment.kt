@@ -34,8 +34,10 @@ class DashboardFragment : Fragment() {
         ViewModelProvider(this).get(DashboardViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentDashboardBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -50,7 +52,8 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.navigateToUserCollection.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 this.findNavController().navigate(
-                    WallpaperFragmentDirections.actionShowDetail(it))
+                    WallpaperFragmentDirections.actionShowDetail(it)
+                )
                 dashboardViewModel.displayUserCollectionComplete()
             }
         })
@@ -68,17 +71,21 @@ class DashboardFragment : Fragment() {
 
         // Use Shared Preference to get user selected display view type
         val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences(
-            DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE)
+            DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE
+        )
 
         // Set Layout Manager Programmatically
         when (sharedPreferences.getInt(DISPLAY_VIEW_TYPE_KEY, 2)) {
-            0 -> binding?.photosGrid?.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+            0 -> binding?.photosGrid?.layoutManager =
+                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
             1 -> binding?.photosGrid?.layoutManager = GridLayoutManager(requireContext(), 2)
-            else -> binding?.photosGrid?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            else -> binding?.photosGrid?.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         }
 
         // Experimental
-        binding?.photosGrid?.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        binding?.photosGrid?.adapter?.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         // Handle Swipe Refresh Layout
         binding?.photosGridSwipeRefresh?.apply {
@@ -92,13 +99,14 @@ class DashboardFragment : Fragment() {
                     setColorSchemeResources(R.color.colorOnPrimary)
                 }
             }
-            setOnRefreshListener {refreshDashboard()}
+            setOnRefreshListener { refreshDashboard() }
         }
     }
 
     private fun refreshDashboard() {
         // Get current internet connection status
-        val connectionManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val connectionManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         val networkManager = connectionManager?.activeNetwork
         val activeNetwork = connectionManager?.getNetworkCapabilities(networkManager)
         // Check if it is connected to mobile data or wifi and have valid connected access
@@ -107,19 +115,29 @@ class DashboardFragment : Fragment() {
                 activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                 activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
                 activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+            ) {
                 photosGridSwipeRefresh.isRefreshing = false
-                val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                val navHostFragment =
+                    requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
                 val navController = navHostFragment?.findNavController()
                 navController?.popBackStack(R.id.wallpaperFragment, true)
                 navController?.navigate(R.id.wallpaperFragment)
             } else {
                 photosGridSwipeRefresh.isRefreshing = false
-                Toast.makeText(requireContext(), requireContext().getString(R.string.no_active_connection), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().getString(R.string.no_active_connection),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         } else {
             photosGridSwipeRefresh.isRefreshing = false
-            Toast.makeText(requireContext(), requireContext().getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                requireContext().getString(R.string.no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -190,7 +208,8 @@ class DashboardFragment : Fragment() {
             R.id.listView -> {
                 // Handle List View
                 //photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                requireActivity().photosGrid.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+                requireActivity().photosGrid.layoutManager =
+                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
                 getUserSelectedDisplayViewType(0)
                 true
             }
@@ -204,7 +223,8 @@ class DashboardFragment : Fragment() {
             }
             R.id.staggeredGridView -> {
                 // Handle Staggered View
-                requireActivity().photosGrid.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                requireActivity().photosGrid.layoutManager =
+                    StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 getUserSelectedDisplayViewType(2)
                 true
             }
@@ -215,14 +235,15 @@ class DashboardFragment : Fragment() {
     // Save user selection for display view type
     private fun getUserSelectedDisplayViewType(displayViewType: Int) {
         val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences(
-            DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE)
+            DISPLAY_VIEW_TYPE, Context.MODE_PRIVATE
+        )
         val editor = sharedPreferences.edit()
         editor.putInt(DISPLAY_VIEW_TYPE_KEY, displayViewType)
         editor.apply()
     }
 
     companion object {
-        var DISPLAY_VIEW_TYPE : String = "DISPLAY_VIEW_TYPE"
-        var DISPLAY_VIEW_TYPE_KEY : String = "display_view_type_key"
+        var DISPLAY_VIEW_TYPE: String = "DISPLAY_VIEW_TYPE"
+        var DISPLAY_VIEW_TYPE_KEY: String = "display_view_type_key"
     }
 }

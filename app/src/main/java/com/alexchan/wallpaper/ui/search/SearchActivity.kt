@@ -25,7 +25,7 @@ class SearchActivity : AppCompatActivity() {
         //supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(applicationContext, R.color.colorPrimary)))
 
         // Allow the user to clear recent search history
-        clearSearchHistoryButton.setOnClickListener {clearSearchHistoryConfirmation()}
+        clearSearchHistoryButton.setOnClickListener { clearSearchHistoryConfirmation() }
     }
 
     private fun clearSearchHistoryConfirmation() {
@@ -38,7 +38,11 @@ class SearchActivity : AppCompatActivity() {
             .setCancelable(false)
             .setPositiveButton(getString(R.string.confirmation_clear_search_history_yes)) { _, _ ->
                 // Clear user recent search history
-                SearchRecentSuggestions(this, SearchSuggestionProvider.AUTHORITY, SearchSuggestionProvider.MODE)
+                SearchRecentSuggestions(
+                    this,
+                    SearchSuggestionProvider.AUTHORITY,
+                    SearchSuggestionProvider.MODE
+                )
                     .clearHistory()
                 imm?.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
             }
