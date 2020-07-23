@@ -17,23 +17,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:elevation="0dp">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/topToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?android:attr/actionBarSize"
-                    app:title="@string/unsplash"
-                    app:menu="@menu/top_app_bar"
-                    app:navigationIcon="@drawable/ic_menu"
-                    app:popupTheme="@style/ThemeOverlay.MaterialComponents.DayNight"
-                    style="@style/UnsplashToolbar" />
-
-            </com.google.android.material.appbar.AppBarLayout>
-
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/mainNavHostFragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
