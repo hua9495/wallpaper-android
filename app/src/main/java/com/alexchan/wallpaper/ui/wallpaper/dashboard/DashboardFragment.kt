@@ -23,10 +23,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.adapter.dashboard.PhotoGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
-import com.alexchan.wallpaper.ui.MainActivity
 import com.alexchan.wallpaper.ui.search.SearchActivity
 import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
@@ -57,24 +55,14 @@ class DashboardFragment : Fragment() {
             }
         })
 
-        // Show Top Toolbar
-        requireActivity().topToolbar.visibility = View.VISIBLE
-
-        // Set TopToolbar OnMenuItemClickListener
-        requireActivity().topToolbar.setOnMenuItemClickListener{item: MenuItem? -> onMenuItemClick(item)}
+        // Set TopToolbar OnMenuItemClickListener -> (Change to Floating Action Button)
+        //requireActivity().topToolbar.setOnMenuItemClickListener{item: MenuItem? -> onMenuItemClick(item)}
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Reset Search Query
-        MainActivity.searchQuery = ""
-        MainActivity.searchStatus = false
-
-        // Reset Pagination
-        MainActivity.paginationStatus = true
 
         val binding = DataBindingUtil.bind<FragmentDashboardBinding>(view)
 
@@ -92,39 +80,19 @@ class DashboardFragment : Fragment() {
         // Experimental
         binding?.photosGrid?.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-        // Add previous and next button on click listener and set current page number
-        if (MainActivity.showPagination) {
-            binding?.pageNumberTextView?.apply {
-                visibility = View.VISIBLE
-                text = MainActivity.pageNumber.toString()
-            }
-            binding?.previousButton?.apply {
-                visibility = View.VISIBLE
-                setOnClickListener {displayPreviousPage()}
-            }
-            binding?.nextButton?.apply {
-                visibility = View.VISIBLE
-                setOnClickListener {displayNextPage()}
-            }
-        }
-
-        binding?.photosGridSwipeRefresh?.isEnabled = false
         // Handle Swipe Refresh Layout
-        if (MainActivity.showPagination) {
-            binding?.photosGridSwipeRefresh?.apply {
-                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                    Configuration.UI_MODE_NIGHT_YES -> {
-                        setProgressBackgroundColorSchemeResource(R.color.colorOnPrimary)
-                        setColorSchemeResources(R.color.colorPrimary)
-                    }
-                    Configuration.UI_MODE_NIGHT_NO -> {
-                        setProgressBackgroundColorSchemeResource(R.color.colorPrimary)
-                        setColorSchemeResources(R.color.colorOnPrimary)
-                    }
+        binding?.photosGridSwipeRefresh?.apply {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    setProgressBackgroundColorSchemeResource(R.color.colorOnPrimary)
+                    setColorSchemeResources(R.color.colorPrimary)
                 }
-                isEnabled = true
-                setOnRefreshListener {refreshDashboard()}
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    setProgressBackgroundColorSchemeResource(R.color.colorPrimary)
+                    setColorSchemeResources(R.color.colorOnPrimary)
+                }
             }
+            setOnRefreshListener {refreshDashboard()}
         }
     }
 
@@ -155,7 +123,7 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun displayPreviousPage() {
+    /*private fun displayPreviousPage() {
         // Get current internet connection status
         val connectionManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         val networkManager = connectionManager?.activeNetwork
@@ -209,12 +177,11 @@ class DashboardFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), requireContext().getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show()
         }
-    }
+    }*/
 
     private fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.search -> {
-                MainActivity.paginationStatus = false
                 val intent = Intent(requireContext(), SearchActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)

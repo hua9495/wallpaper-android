@@ -7,22 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.service.web.UnsplashApi
-import com.alexchan.wallpaper.ui.MainActivity
-import com.alexchan.wallpaper.ui.MainActivity.Companion.pageNumber
-import com.alexchan.wallpaper.ui.MainActivity.Companion.paginationStatus
-import com.alexchan.wallpaper.ui.MainActivity.Companion.searchStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 enum class UnsplashApiStatus { LOADING, ERROR, DONE }
 
 class DashboardViewModel : ViewModel() {
-    
+
     private val _status = MutableLiveData<UnsplashApiStatus>()
 
     // List <Photo>
     private val _photoProperties = MutableLiveData<List<Photo>>()
-    
+
     val status: LiveData<UnsplashApiStatus>
         get() = _status
 
@@ -36,15 +32,9 @@ class DashboardViewModel : ViewModel() {
         get() = _navigateToUserCollection
 
     init {
-        when (paginationStatus) {
-            true -> getUnsplashPagination(pageNumber)
-            false -> when (searchStatus) {
-                true -> getUnsplashSearchPhotos(MainActivity.searchQuery)
-                false -> getUnsplashPhotos()
-            }
-        }
+        getUnsplashPhotos()
     }
-    
+
     private fun getUnsplashPhotos() {
         viewModelScope.launch(Dispatchers.Main) {
             // Get List <Photo>
@@ -61,7 +51,7 @@ class DashboardViewModel : ViewModel() {
                     _photoProperties.value = listPhotos
 
                     // For testing purposes
-                    listPhotos.forEach{
+                    listPhotos.forEach {
                         Log.d("Photos", it.photoUrl.raw)
                     }
                 }
@@ -77,7 +67,8 @@ class DashboardViewModel : ViewModel() {
     fun getUnsplashSearchPhotos(searchQuery: String) {
         viewModelScope.launch(Dispatchers.Main) {
             // Get List <Photo>
-            var getListSearchedPhotosDeferred = UnsplashApi.retrofitService.getSearchPhotosAsync(searchQuery)
+            var getListSearchedPhotosDeferred =
+                UnsplashApi.retrofitService.getSearchPhotosAsync(searchQuery)
 
             try {
                 _status.value =
@@ -92,7 +83,7 @@ class DashboardViewModel : ViewModel() {
                     _photoProperties.value = listSearchedPhotos.results
 
                     // For testing purposes
-                    listSearchedPhotos.results.forEach{
+                    listSearchedPhotos.results.forEach {
                         //Log.d("Photos", it.photoUrl.raw)
                         Log.d("Photos", it.photoUrl.raw)
                     }
@@ -109,7 +100,8 @@ class DashboardViewModel : ViewModel() {
     fun getUnsplashPagination(pageNumber: Int) {
         viewModelScope.launch(Dispatchers.Main) {
             // Get List <Photo>
-            var getListUPaginationPhotosDeferred = UnsplashApi.retrofitService.getPaginationPhotosAsync(pageNumber)
+            var getListUPaginationPhotosDeferred =
+                UnsplashApi.retrofitService.getPaginationPhotosAsync(pageNumber)
 
             try {
                 _status.value =
