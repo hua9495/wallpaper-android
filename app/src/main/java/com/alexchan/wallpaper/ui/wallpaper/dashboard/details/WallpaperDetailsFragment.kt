@@ -29,9 +29,6 @@ class WallpaperDetailsFragment : Fragment() {
         binding.wallpaperDetailsViewModel = wallpaperDetailsViewModel
         binding.photoDetailsGrid.adapter = PhotoDetailsGridAdapter()
 
-        // Hide Top Toolbar
-        requireActivity().topToolbar.visibility = View.GONE
-
         return binding.root
     }
 
