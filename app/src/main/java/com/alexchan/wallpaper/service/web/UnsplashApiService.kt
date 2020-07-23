@@ -62,7 +62,7 @@ interface UnsplashApiService {
 
 // Singleton too expensive to call - so call once
 object UnsplashApi {
-    val retrofitService : UnsplashApiService by lazy {
+    val retrofitService: UnsplashApiService by lazy {
         retrofit.create(UnsplashApiService::class.java)
     }
 }
