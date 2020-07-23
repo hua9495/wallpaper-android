@@ -35,22 +35,31 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
 
     private val READ_WRITE_REQUEST_CODE = 100
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = FragmentDownloadPhotoBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         // Bind data from bundle to layout data variable
-        val userSelectedPhoto = DownloadPhotoFragmentArgs.fromBundle(requireArguments()).userSelectedPhoto
+        val userSelectedPhoto =
+            DownloadPhotoFragmentArgs.fromBundle(requireArguments()).userSelectedPhoto
         binding.photoModel = userSelectedPhoto
 
         val username = userSelectedPhoto.user?.name
         val photoId = userSelectedPhoto.id
-        val photoUrl = userSelectedPhoto.photoUrl.raw
+        val photoUrl = userSelectedPhoto.photoUrl.regular
 
         // Handle download photo button on click listener
-        binding.downloadPhotoButton.setOnClickListener {downloadPhoto(username, photoId, photoUrl)}
+        binding.downloadPhotoButton.setOnClickListener {
+            downloadPhoto(
+                username,
+                photoId,
+                photoUrl
+            )
+        }
 
         // Check if photo is downloaded
         // If it is, hide download button and
@@ -59,11 +68,11 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
             binding.downloadPhotoButton.visibility = View.GONE
             binding.openDownloadedPhotoButton.apply {
                 visibility = View.VISIBLE
-                setOnClickListener {openDownloadedPhoto(username, photoId)}
+                setOnClickListener { openDownloadedPhoto(username, photoId) }
             }
             binding.deleteDownloadedPhotoButton.apply {
                 visibility = View.VISIBLE
-                setOnClickListener {deleteDownloadedPhoto(username, photoId)}
+                setOnClickListener { deleteDownloadedPhoto(username, photoId) }
             }
         }
         return binding.root
@@ -79,9 +88,19 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
 
         val file = file(username, photoId)
         if (file.exists()) {
-            Toast.makeText(requireContext(), requireContext().getString(R.string.photo_downloaded, file), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                requireContext().getString(R.string.photo_downloaded, file),
+                Toast.LENGTH_LONG
+            ).show()
         } else {
-            DownloadPhotoConfirmation(username, photoId, photoUrl, requireActivity(), requireContext()).execute(photoUrl)
+            DownloadPhotoConfirmation(
+                username,
+                photoId,
+                photoUrl,
+                requireActivity(),
+                requireContext()
+            ).execute(photoUrl)
         }
     }
 
@@ -89,7 +108,11 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         val file = file(username, photoId)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
-        val uri = FileProvider.getUriForFile(requireContext(), "${this.requireContext().packageName}.provider", file)
+        val uri = FileProvider.getUriForFile(
+            requireContext(),
+            "${this.requireContext().packageName}.provider",
+            file
+        )
         intent.setDataAndType(uri, "image/*")
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivity(intent)
@@ -104,7 +127,11 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
                 .setPositiveButton(getString(R.string.confirmation_delete_photo_yes)) { _, _ ->
                     // Delete downloaded photo
                     file(username, photoId).delete()
-                    Toast.makeText(requireContext(), requireContext().getString(R.string.photo_deleted_successful), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().getString(R.string.photo_deleted_successful),
+                        Toast.LENGTH_LONG
+                    ).show()
                     requireActivity().onBackPressed()
                 }
                 .setNegativeButton(getString(R.string.confirmation_delete_photo_no)) { dialog, _ ->
@@ -149,7 +176,8 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    class DownloadAndSaveImageTask(context: Context, username: String?, photoId: String?) : AsyncTask<String, Unit, Unit>() {
+    class DownloadAndSaveImageTask(context: Context, username: String?, photoId: String?) :
+        AsyncTask<String, Unit, Unit>() {
 
         private var mContext: WeakReference<Context> = WeakReference(context)
         private var mUsername: String? = username
@@ -192,16 +220,30 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
 
         override fun onPreExecute() {
             super.onPreExecute()
-            Toast.makeText(context, context.getString(R.string.photo_downloading), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.photo_downloading),
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
-            Toast.makeText(context, context.getString(R.string.photo_download_successful, filePath), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.photo_download_successful, filePath),
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
-    class DownloadPhotoConfirmation(username: String?, photoId: String?, photoUrl: String, fragmentActivity: FragmentActivity, context: Context) : AsyncTask<String, Unit, Unit>() {
+    class DownloadPhotoConfirmation(
+        username: String?,
+        photoId: String?,
+        photoUrl: String,
+        fragmentActivity: FragmentActivity,
+        context: Context
+    ) : AsyncTask<String, Unit, Unit>() {
 
         private var fileSizeInMB: Float = 0.0F
         private var username: String? = username
@@ -220,14 +262,19 @@ class DownloadPhotoFragment : BottomSheetDialogFragment() {
             } else {
                 urlConnection.contentLength
             }
-            fileSizeInMB = (fileSize.toString().toLong()/1024f/1024f)
+            fileSizeInMB = (fileSize.toString().toLong() / 1024f / 1024f)
         }
 
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
 
             val builder = AlertDialog.Builder(mContext, R.style.AlertDialog_Download)
-            builder.setMessage(mContext.getString(R.string.confirmation_download_photo, fileSizeInMB))
+            builder.setMessage(
+                mContext.getString(
+                    R.string.confirmation_download_photo,
+                    fileSizeInMB
+                )
+            )
                 .setCancelable(false)
                 .setPositiveButton(mContext.getString(R.string.confirmation_download_photo_yes)) { _, _ ->
                     // Download photo confirmation
