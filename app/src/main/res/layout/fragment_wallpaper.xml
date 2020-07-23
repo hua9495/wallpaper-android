@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -13,29 +13,29 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topToolbar"
+            style="@style/UnsplashToolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            app:title="@string/unsplash"
             app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/ic_menu"
             app:popupTheme="@style/ThemeOverlay.MaterialComponents.DayNight"
-            style="@style/UnsplashToolbar" />
+            app:title="@string/unsplash" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
         app:tabIndicator="@drawable/selected_dot"
         app:tabIndicatorColor="@color/colorTabIndicator"
         app:tabIndicatorHeight="20dp" />
 
     <View
+        style="@style/UnsplashDayNightStyle"
         android:layout_width="match_parent"
-        android:layout_height="8dp"
-        style="@style/UnsplashDayNightStyle" />
+        android:layout_height="8dp" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

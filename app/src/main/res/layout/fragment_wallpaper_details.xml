@@ -5,6 +5,7 @@
     tools:context=".ui.wallpaper.dashboard.details.WallpaperDetailsFragment">
 
     <data>
+
         <variable
             name="wallpaperDetailsViewModel"
             type="com.alexchan.wallpaper.ui.wallpaper.dashboard.details.WallpaperDetailsViewModel" />
@@ -21,36 +22,37 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/titleTopToolbar"
+                style="@style/UnsplashToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                app:title="@{wallpaperDetailsViewModel.userPhotoCollection.user.name}"
-                app:titleTextColor="@color/colorTitleText"
                 android:theme="@style/TitleUsernameBold"
                 app:menu="@menu/title_details_top_app_bar"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back_ios"
                 app:navigationContentDescription="@string/back_to_dashboard"
-                style="@style/UnsplashToolbar"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_ios"
+                app:title="@{wallpaperDetailsViewModel.userPhotoCollection.user.name}"
+                app:titleTextColor="@color/colorTitleText"
                 tools:title="@string/unsplash" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
+            style="@style/UnsplashDayNightStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:paddingTop="8dp"
             android:orientation="vertical"
-            style="@style/UnsplashDayNightStyle">
+            android:paddingTop="8dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
+                style="@style/UnsplashDayNightStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                style="@style/UnsplashDayNightStyle">
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/userLocationTextView"
+                    style="@style/TextLocationStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -58,7 +60,6 @@
                     android:drawableStart="@drawable/ic_baseline_location_on"
                     android:drawablePadding="5dp"
                     android:text="@{wallpaperDetailsViewModel.displayUserLocation}"
-                    style="@style/TextLocationStyle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/userProfileImageView"
                     app:layout_constraintStart_toStartOf="parent"
@@ -77,32 +78,32 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/ic_baseline_cloud_off"
-                    app:userProfileImage="@{wallpaperDetailsViewModel.displayUserImage}"  />
+                    app:userProfileImage="@{wallpaperDetailsViewModel.displayUserImage}"
+                    tools:src="@drawable/ic_baseline_cloud_off" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/userFollowButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
-                    app:strokeColor="@color/colorLightGrey"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:textColor="#bdbdbd"
                     android:clickable="false"
                     android:text="@string/userFollow"
+                    android:textColor="#bdbdbd"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/userProfileImageView"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/colorLightGrey" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingTop="15dp"
+                style="@style/UnsplashDayNightStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/UnsplashDayNightStyle">
+                android:paddingTop="15dp">
 
                 <ImageView
                     android:layout_width="17dp"
@@ -130,13 +131,13 @@
 
                 <ImageView
                     android:id="@+id/dotOneImageView"
-                    android:visibility="gone"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/selected_dot"
                     android:backgroundTint="@android:color/black"
                     android:contentDescription="@string/selected_dot_indicator"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -145,12 +146,12 @@
 
                 <ImageView
                     android:id="@+id/dotTwoImageView"
-                    android:visibility="gone"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginStart="16dp"
                     android:background="@drawable/default_dot"
                     android:contentDescription="@string/default_dot_indicator"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -160,68 +161,67 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
+                style="@style/UnsplashDayNightStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="3"
-                style="@style/UnsplashDayNightStyle">
+                android:weightSum="3">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/userTotalPhotoButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@{wallpaperDetailsViewModel.displayUserTotalPhotos}"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:textColor="#8d8d8d"
                     android:layout_weight="1"
+                    android:text="@{wallpaperDetailsViewModel.displayUserTotalPhotos}"
+                    android:textColor="#8d8d8d"
                     app:rippleColor="@color/colorSecondary"
                     tools:text="@string/userTotalPhotos" />
 
                 <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="@{wallpaperDetailsViewModel.displayUserTotalLiked}"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:textColor="#bdbdbd"
-                    android:clickable="false"
                     android:layout_weight="1"
+                    android:clickable="false"
+                    android:text="@{wallpaperDetailsViewModel.displayUserTotalLiked}"
+                    android:textColor="#bdbdbd"
                     tools:text="@string/userTotalLiked" />
 
                 <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{wallpaperDetailsViewModel.displayUserTotalCollections}"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:textColor="#bdbdbd"
-                    android:clickable="false"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
+                    android:clickable="false"
+                    android:text="@{wallpaperDetailsViewModel.displayUserTotalCollections}"
+                    android:textColor="#bdbdbd"
                     tools:text="@string/userTotalCollections" />
 
             </LinearLayout>
 
             <FrameLayout
+                style="@style/UnsplashDayNightStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/UnsplashDayNightStyle">
+                android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/photoDetailsGrid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
                     android:clipToPadding="false"
-                    app:layoutManager=
-                        "androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                    app:spanCount="2"
+                    android:padding="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:listDataDetails="@{wallpaperDetailsViewModel.userPhotos}"
+                    app:spanCount="2"
                     tools:itemCount="16"
                     tools:listitem="@layout/item_details_gridview" />
 
@@ -230,17 +230,17 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_gravity="center"
-                    app:unsplashApiStatus="@{wallpaperDetailsViewModel.status}"
-                    android:contentDescription="@string/unsplash_api_status" />
+                    android:contentDescription="@string/unsplash_api_status"
+                    app:unsplashApiStatus="@{wallpaperDetailsViewModel.status}" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/statusLottieAnimationView"
+                    unsplashApiStatusWithLottie="@{wallpaperDetailsViewModel.status}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintWidth_percent="1"
-                    unsplashApiStatusWithLottie="@{wallpaperDetailsViewModel.status}"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/no_internet_connection" />

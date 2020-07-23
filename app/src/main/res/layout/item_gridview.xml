@@ -2,8 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
+
         <variable
             name="photoProperty"
             type="com.alexchan.wallpaper.model.unsplash.Photo" />
@@ -16,11 +17,11 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/unsplashPhotoMaterialCardView"
+            style="@style/CardView.DayNight"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardUseCompatPadding="true"
             app:cardCornerRadius="8dp"
-            style="@style/CardView.DayNight">
+            app:cardUseCompatPadding="true">
 
             <ImageView
                 android:id="@+id/unsplashPhotoImageView"
@@ -28,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 app:imageUrl="@{photoProperty.photoUrl.regular}"
-                tools:src="@tools:sample/backgrounds/scenic"/>
+                tools:src="@tools:sample/backgrounds/scenic" />
 
         </com.google.android.material.card.MaterialCardView>
 

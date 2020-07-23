@@ -5,9 +5,9 @@
     tools:context=".ui.search.SearchActivity">
 
     <LinearLayout
+        style="@style/UnsplashDayNightStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/UnsplashDayNightStyle">
+        android:layout_height="match_parent">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/clearSearchHistoryButton"

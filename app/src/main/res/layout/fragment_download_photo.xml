@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.wallpaper.dashboard.download.DownloadPhotoFragment">
 
     <data>
+
         <variable
             name="photoModel"
             type="com.alexchan.wallpaper.model.unsplash.Photo" />
     </data>
 
     <ScrollView
+        style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,14 +23,14 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/photoMaterialCardView"
+                style="@style/CardView.DayNight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                app:cardUseCompatPadding="true"
+                android:layout_marginEnd="8dp"
                 app:cardCornerRadius="8dp"
-                style="@style/CardView.DayNight">
+                app:cardUseCompatPadding="true">
 
                 <ImageView
                     android:id="@+id/unsplashPhotoImageView"
@@ -49,8 +49,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:fontFamily="@font/roboto"
-                android:textStyle="bold"
                 android:text="@{String.format(@string/photo_taken_by_user_name, photoModel.user.name)}"
+                android:textStyle="bold"
                 tools:text="@string/photo_taken_by_user_name" />
 
             <View
@@ -62,32 +62,32 @@
                 android:id="@+id/downloadPhotoButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorSecondary"
                 android:layout_margin="16dp"
-                android:text="@string/download_photo" />
+                android:text="@string/download_photo"
+                app:backgroundTint="@color/colorSecondary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/openDownloadedPhotoButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorSecondary"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
+                android:text="@string/open_downloaded_photo"
                 android:visibility="gone"
-                android:text="@string/open_downloaded_photo" />
+                app:backgroundTint="@color/colorSecondary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/deleteDownloadedPhotoButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorSecondary"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="@string/delete_downloaded_photo"
                 android:visibility="gone"
-                android:text="@string/delete_downloaded_photo" />
+                app:backgroundTint="@color/colorSecondary" />
 
         </LinearLayout>
     </ScrollView>
