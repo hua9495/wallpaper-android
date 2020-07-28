@@ -83,4 +83,8 @@
     <string name="confirmation_delete_photo_no">No</string>
     <string name="photo_deleted_successful">Successfully delete Image from your device!</string>
 
+    <!-- Rework - Search Fragment -->
+    <string name="search_in_unsplash">Search in Unsplash</string>
+    <string name="search_fragment">Search Fragment</string>
+
 </resources>
