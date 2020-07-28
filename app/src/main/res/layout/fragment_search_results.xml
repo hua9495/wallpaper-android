@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.search_rework.search_results.SearchResultsFragment">
+
+    <data>
+
+        <variable
+            name="searchResultsViewModel"
+            type="com.alexchan.wallpaper.ui.search_rework.search_results.SearchResultsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/photosGridSwipeRefresh"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/paginationLinearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photosGrid"
+                style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                app:layout_constraintBottom_toTopOf="@id/paginationLinearLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:listSearchResultsData="@{searchResultsViewModel.photoProperties}"
+                tools:itemCount="16"
+                tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                tools:listitem="@layout/item_gridview"
+                tools:spanCount="2" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ImageView
+            android:id="@+id/statusImage"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:contentDescription="@string/unsplash_api_status"
+            app:layout_constraintBottom_toBottomOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintLeft_toLeftOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintRight_toRightOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintTop_toTopOf="@id/photosGridSwipeRefresh"
+            app:unsplashApiStatus="@{searchResultsViewModel.status}" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/statusLottieAnimationView"
+            unsplashApiStatusWithLottie="@{searchResultsViewModel.status}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            app:layout_constraintBottom_toBottomOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintRight_toRightOf="@id/photosGridSwipeRefresh"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="1"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/no_internet_connection" />
+
+        <LinearLayout
+            android:id="@+id/paginationLinearLayout"
+            style="@style/UnsplashPagination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/photosGridSwipeRefresh">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/previousButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="0.95"
+                android:backgroundTint="@color/colorSecondary"
+                android:text="@string/previous"
+                android:visibility="gone" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/pageNumberTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:fontFamily="@font/roboto"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/nextButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="0.95"
+                android:backgroundTint="@color/colorSecondary"
+                android:text="@string/next"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
