@@ -87,4 +87,7 @@
     <string name="search_in_unsplash">Search in Unsplash</string>
     <string name="search_fragment">Search Fragment</string>
 
+    <!-- Rework - Search Suggestions Fragment -->
+    <string name="search_suggestions_fragment">Search Suggestions Fragment</string>
+
 </resources>
