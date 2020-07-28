@@ -26,4 +26,28 @@
     <style name="ThemeOverlay.MaterialComponents.DayNight" parent="ThemeOverlay.MaterialComponents.Dark" />
 
     <style name="UnsplashDrawer" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
+
+    <!-- Rework - Search Fragment -->
+    <style name="UnsplashToolbar.Search" parent="Widget.MaterialComponents.Toolbar.PrimarySurface">
+        <item name="android:background">@color/colorSearchDarkDarkTheme</item>
+    </style>
+
+    <style name="MaterialComponents.TextInputLayout.FilledBox.DayNight" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@color/colorSearchLightDarkTheme</item>
+        <item name="hintTextColor">@color/colorSearchLightDarkTheme</item>
+        <item name="helperTextTextColor">@color/colorSearchLightDarkTheme</item>
+        <item name="boxBackgroundColor">@color/search_box_background_color_dark_theme</item>
+        <item name="boxStrokeColor">@color/search_box_stroke_color_dark_theme</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="endIconTint">@color/search_clear_text_dark_theme</item>
+    </style>
+
+    <style name="MaterialComponents.TextInputLayout.FilledBox.Search" parent="">
+        <item name="colorControlActivated">@color/colorSecondary</item>
+    </style>
+
+    <style name="MaterialComponents.TextInputEditText.SearchInput" parent="">
+        <item name="android:textColor">@color/colorSearchTextDarkTheme</item>
+    </style>
+
 </resources>

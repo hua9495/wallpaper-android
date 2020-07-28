@@ -102,4 +102,23 @@
         <item name="colorPrimary">@color/colorSecondaryVariant</item>
     </style>
 
+    <!-- Rework - Search Fragment -->
+    <style name="UnsplashToolbar.Search" parent="Widget.MaterialComponents.Toolbar.PrimarySurface">
+        <item name="android:background">@color/colorSearchLightGrey</item>
+    </style>
+
+    <style name="MaterialComponents.TextInputLayout.FilledBox.DayNight" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@color/colorBlack</item>
+        <item name="hintTextColor">@color/colorBlack</item>
+        <item name="helperTextTextColor">@color/colorBlack</item>
+        <item name="boxBackgroundColor">@color/search_box_background_color</item>
+        <item name="boxStrokeColor">@color/search_box_stroke_color</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="endIconTint">@color/search_clear_text</item>
+    </style>
+
+    <style name="MaterialComponents.TextInputLayout.FilledBox.Search" parent="">
+        <item name="colorControlActivated">@color/colorSecondary</item>
+    </style>
+
 </resources>
