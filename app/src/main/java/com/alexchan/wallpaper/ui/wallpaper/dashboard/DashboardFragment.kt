@@ -1,7 +1,6 @@
 package com.alexchan.wallpaper.ui.wallpaper.dashboard
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.net.ConnectivityManager
@@ -16,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,9 +23,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.adapter.dashboard.PhotoGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
-import com.alexchan.wallpaper.ui.search.SearchActivity
 import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_wallpaper.*
 
 
 class DashboardFragment : Fragment() {
@@ -59,7 +59,11 @@ class DashboardFragment : Fragment() {
         })
 
         // Set TopToolbar OnMenuItemClickListener -> (Change to Floating Action Button)
-        //requireActivity().topToolbar.setOnMenuItemClickListener{item: MenuItem? -> onMenuItemClick(item)}
+        requireActivity().topToolbar.setOnMenuItemClickListener { item: MenuItem? ->
+            onMenuItemClick(
+                item
+            )
+        }
 
         return binding.root
     }
@@ -200,12 +204,12 @@ class DashboardFragment : Fragment() {
     private fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.search -> {
-                val intent = Intent(requireContext(), SearchActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
+                requireActivity().findNavController(R.id.mainNavHostFragment)
+                    .navigate(R.id.searchFragment)
                 true
             }
-            R.id.listView -> {
+            // Change to Floating Action Button (FAB)
+            /*R.id.listView -> {
                 // Handle List View
                 //photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                 requireActivity().photosGrid.layoutManager =
@@ -227,7 +231,7 @@ class DashboardFragment : Fragment() {
                     StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 getUserSelectedDisplayViewType(2)
                 true
-            }
+            }*/
             else -> false
         }
     }
