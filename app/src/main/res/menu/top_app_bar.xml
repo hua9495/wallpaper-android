@@ -9,38 +9,4 @@
         android:title="@string/search"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/changeDisplayView"
-        android:contentDescription="@string/change_display_view"
-        android:icon="@drawable/ic_baseline_filter_list"
-        android:title="@string/change_display_view"
-        app:showAsAction="always">
-
-        <menu>
-
-            <item
-                android:id="@+id/listView"
-                android:contentDescription="@string/list_view"
-                android:icon="@drawable/ic_baseline_list_view"
-                android:title="@string/list_view"
-                app:showAsAction="always" />
-
-            <item
-                android:id="@+id/gridView"
-                android:contentDescription="@string/grid_view"
-                android:icon="@drawable/ic_baseline_grid_view"
-                android:title="@string/grid_view"
-                app:showAsAction="always" />
-
-            <item
-                android:id="@+id/staggeredGridView"
-                android:contentDescription="@string/staggered_grid_view"
-                android:icon="@drawable/ic_baseline_staggered_grid_view"
-                android:title="@string/staggered_grid_view"
-                app:showAsAction="always" />
-
-        </menu>
-
-    </item>
-
 </menu>
