@@ -4,14 +4,12 @@ import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.database.SearchSuggestionProvider
 import com.alexchan.wallpaper.ui.MainActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class SearchResultsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +25,6 @@ class SearchResultsActivity : AppCompatActivity() {
         /*topToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios)
         topToolbar.setNavigationOnClickListener {navigateBackToMainActivity()}
         topToolbar.title = intent.getStringExtra(SearchManager.QUERY)*/
-
-        // Hide Bottom Navigation
-        bottomNavigation.visibility = View.GONE
 
         handleIntent(intent)
     }
