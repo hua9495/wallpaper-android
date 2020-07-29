@@ -3,6 +3,8 @@ package com.alexchan.wallpaper.ui.wallpaper
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alexchan.wallpaper.R
 import com.alexchan.wallpaper.ui.wallpaper.dashboard.DashboardFragment
@@ -22,6 +24,18 @@ class WallpaperFragment : Fragment(R.layout.fragment_wallpaper) {
                 this
             )
         setupViewPager()
+        setupBottomNavigation()
+    }
+
+    private fun setupBottomNavigation() {
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+        val navController = navHostFragment?.findNavController()
+
+        // Set up Bottom Navigation with navController
+        if (navController != null) {
+            NavigationUI.setupWithNavController(bottomNavigation, navController)
+        }
     }
 
     private fun setupViewPager() {
