@@ -18,7 +18,9 @@
         tools:layout="@layout/fragment_search_suggestions">
         <action
             android:id="@+id/action_showSearchedResults"
-            app:destination="@id/searchResultsFragment" />
+            app:destination="@id/searchResultsFragment"
+            app:popUpTo="@id/searchSuggestionsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -42,6 +44,11 @@
             app:destination="@id/searchResultsFragment"
             app:popUpTo="@id/searchResultsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_showSearchSuggestions"
+            app:destination="@id/searchSuggestionsFragment"
+            app:popUpTo="@id/searchResultsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -55,6 +62,16 @@
         <argument
             android:name="selectedPhoto"
             app:argType="com.alexchan.wallpaper.model.unsplash.Photo" />
+        <action
+            android:id="@+id/action_showSearchedResults"
+            app:destination="@id/searchResultsFragment"
+            app:popUpTo="@id/searchResultsFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_showSearchSuggestions"
+            app:destination="@id/searchSuggestionsFragment"
+            app:popUpTo="@id/searchResultsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <dialog
