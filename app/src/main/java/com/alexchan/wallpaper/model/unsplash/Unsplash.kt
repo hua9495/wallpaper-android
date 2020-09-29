@@ -45,8 +45,8 @@ data class User(
     @Json(name = "profile_image")
     val profileImage: ProfileImage?
 ) : Parcelable {
-    val isLocationNull
-        get() = location == null
+    val isLocationNullorUnknown
+        get() = location == null || location == "Location unknown"
     val isTotalPhotoEqualOne
         get() = totalPhotos == 1
     val isTotalPhotosOverThousand

@@ -11,15 +11,26 @@
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorOnBackground">#000000</color>
 
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorOnSurface">#000000</color>
+    <color name="colorSurface">#121212</color>
+    <color name="colorOnSurface">#FFFFFF</color>
 
     <color name="colorError">#B00020</color>
     <color name="colorOnError">#FFFFFF</color>
 
     <color name="colorTabSelected">#6801f4</color>
-
     <color name="colorTabIndicator">#f44336</color>
 
     <color name="colorTitleText">#8d8d8d</color>
+    <color name="colorContentText">#bdbdbd</color>
+
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDarkGrey">#8d8d8d</color>
+    <color name="colorLightGrey">#bdbdbd</color>
+
+    <color name="colorSearchLightGrey">#e8e8e8</color>
+    <color name="colorSearchDarkGrey">#9c9c9c</color>
+    <color name="colorSearchLightDarkTheme">#a8a6aa</color>
+    <color name="colorSearchDarkDarkTheme">#423e47</color>
+    <color name="colorSearchTextDarkTheme">#e3e3e4</color>
 </resources>

@@ -1,25 +1,39 @@
-package com.alexchan.wallpaper.adapter.wallpaper
+package com.alexchan.wallpaper.adapter.search_results
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alexchan.wallpaper.databinding.ItemGridviewBinding
 import com.alexchan.wallpaper.model.unsplash.Photo
+import com.alexchan.wallpaper.ui.search_rework.search_results.SearchResultsFragmentDirections
 
-class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Photo, PhotoGridAdapter.PhotoPropertyViewHolder>(DiffCallback) {
+class PhotoSearchResultsGridAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<Photo, PhotoSearchResultsGridAdapter.PhotoPropertyViewHolder>(
+        DiffCallback
+    ) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PhotoGridAdapter.PhotoPropertyViewHolder {
-        return PhotoPropertyViewHolder(ItemGridviewBinding.inflate(
-            LayoutInflater.from(parent.context)))
+    ): PhotoPropertyViewHolder {
+        return PhotoPropertyViewHolder(
+            ItemGridviewBinding.inflate(
+                LayoutInflater.from(parent.context)
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: PhotoGridAdapter.PhotoPropertyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PhotoPropertyViewHolder, position: Int) {
         val photo = getItem(position)
         holder.itemView.setOnClickListener { onClickListener.onClick(photo) }
+        holder.itemView.setOnLongClickListener {
+            it?.findNavController()?.navigate(
+                SearchResultsFragmentDirections.actionShowDownloadSearchedPhotoDetails(photo)
+            )
+            true
+        }
         holder.bind(photo)
     }
 
@@ -38,8 +52,8 @@ class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapt
         }
     }
 
-    class PhotoPropertyViewHolder(private var binding: ItemGridviewBinding):
-            RecyclerView.ViewHolder(binding.root) {
+    class PhotoPropertyViewHolder(private var binding: ItemGridviewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: Photo) {
             binding.photoProperty = photo
             binding.executePendingBindings()

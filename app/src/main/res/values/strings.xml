@@ -32,10 +32,18 @@
     <string name="list_view">List View</string>
     <string name="grid_view">Grid View</string>
     <string name="staggered_grid_view">Staggered Grid View</string>
-    <string name="search_photos">Search Photos…</string>
+
+    <!-- Dashboard -->
+    <string name="previous">Previous</string>
+    <string name="you_are_already_on_the_first_page">You are already on the first page</string>
+    <string name="next">Next</string>
+    <string name="no_active_connection">You are connected to the internet, but the internet connection is not valid, please try again later or restart your internet connection</string>
+    <string name="no_internet_connection">No internet connection detected, please connect to the internet to proceed</string>
 
     <!-- Wallpaper Details Profile -->
+    <string name="back_to_dashboard">Back to Dashboard</string>
     <string name="userLocation">%s</string>
+    <string name="userLocationUnknown">unknown</string>
     <string name="userFollow">Follow</string>
     <string name="userTotalPhoto">%d Photo</string>
     <string name="userTotalPhotos">%d Photos</string>
@@ -46,5 +54,40 @@
     <string name="userTotalCollections">%d Collections</string>
     <string name="selected_dot_indicator">Selected dot indicator</string>
     <string name="default_dot_indicator">Default dot indicator</string>
+
+    <!-- Search Activity -->
+    <string name="search_activity">Search Activity</string>
+    <string name="search_photos">Search Photos…</string>
+    <string name="clear_search_history">Clear Search History</string>
+    <string name="confirmation_clear_search_history">Are you sure you want to clear search history?\n\nThis action cannot be undo.</string>
+    <string name="confirmation_clear_search_history_yes">Yes</string>
+    <string name="confirmation_clear_search_history_no">No</string>
+
+    <!-- Search Results Activity -->
+    <string name="search_results_activity">Search Results Activity</string>
+    <string name="search_results">Search Results</string>
+
+    <!-- Download Photo Fragment -->
+    <string name="download_photo">Download</string>
+    <string name="photo_taken_by_user_name">Photo taken by: %s</string>
+    <string name="open_downloaded_photo">Open Downloaded Photo In Gallery</string>
+    <string name="delete_downloaded_photo">Delete Downloaded Photo From Device</string>
+    <string name="confirmation_download_photo">Are you sure you want to download this image to your device?\n\nDownload file size is %.2f MB.</string>
+    <string name="confirmation_download_photo_yes">Yes</string>
+    <string name="confirmation_download_photo_no">No</string>
+    <string name="photo_downloading">Downloading Image…</string>
+    <string name="photo_download_successful">Download Image Successful!\n\nImage saved at: %s</string>
+    <string name="photo_downloaded">This Image has already been downloaded!\n\nImage saved at: %s</string>
+    <string name="confirmation_delete_photo">Are you sure you want to delete this image from your device?\n\nThis action cannot be undo.</string>
+    <string name="confirmation_delete_photo_yes">Yes</string>
+    <string name="confirmation_delete_photo_no">No</string>
+    <string name="photo_deleted_successful">Successfully delete Image from your device!</string>
+
+    <!-- Rework - Search Fragment -->
+    <string name="search_in_unsplash">Search in Unsplash</string>
+    <string name="search_fragment">Search Fragment</string>
+
+    <!-- Rework - Search Suggestions Fragment -->
+    <string name="search_suggestions_fragment">Search Suggestions Fragment</string>
 
 </resources>

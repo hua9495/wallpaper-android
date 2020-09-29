@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_rework_wallpaper"
+    app:startDestination="@id/searchSuggestionsFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.alexchan.wallpaper.ui.search_rework.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/searchSuggestionsFragment"
+        android:name="com.alexchan.wallpaper.ui.search_rework.search_suggestions.SearchSuggestionsFragment"
+        android:label="fragment_search_suggestions"
+        tools:layout="@layout/fragment_search_suggestions">
+        <action
+            android:id="@+id/action_showSearchedResults"
+            app:destination="@id/searchResultsFragment"
+            app:popUpTo="@id/searchSuggestionsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchResultsFragment"
+        android:name="com.alexchan.wallpaper.ui.search_rework.search_results.SearchResultsFragment"
+        android:label="fragment_search_results"
+        tools:layout="@layout/fragment_search_results">
+        <action
+            android:id="@+id/action_showDownloadSearchedPhotoDetails"
+            app:destination="@+id/downloadPhotoFragment" />
+        <action
+            android:id="@+id/action_showSearchedPhotoDetail"
+            app:destination="@+id/wallpaperDetailsFragment"
+            app:popUpTo="@id/wallpaperDetailsFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="searchQuery"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_showSearchedResults"
+            app:destination="@id/searchResultsFragment"
+            app:popUpTo="@id/searchResultsFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_showSearchSuggestions"
+            app:destination="@id/searchSuggestionsFragment"
+            app:popUpTo="@id/searchResultsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/wallpaperDetailsFragment"
+        android:name="com.alexchan.wallpaper.ui.wallpaper.dashboard.details.WallpaperDetailsFragment"
+        android:label="fragment_wallpaper_details"
+        tools:layout="@layout/fragment_wallpaper_details">
+        <action
+            android:id="@+id/action_showDownloadDetails"
+            app:destination="@+id/downloadPhotoFragment" />
+        <argument
+            android:name="selectedPhoto"
+            app:argType="com.alexchan.wallpaper.model.unsplash.Photo" />
+        <action
+            android:id="@+id/action_showSearchedResults"
+            app:destination="@id/searchResultsFragment"
+            app:popUpTo="@id/searchResultsFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_showSearchSuggestions"
+            app:destination="@id/searchSuggestionsFragment"
+            app:popUpTo="@id/searchResultsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/downloadPhotoFragment"
+        android:name="com.alexchan.wallpaper.ui.wallpaper.dashboard.download.DownloadPhotoFragment"
+        android:label="fragment_download_photo"
+        tools:layout="@layout/fragment_download_photo">
+        <argument
+            android:name="userSelectedPhoto"
+            app:argType="com.alexchan.wallpaper.model.unsplash.Photo" />
+    </dialog>
+
+</navigation>

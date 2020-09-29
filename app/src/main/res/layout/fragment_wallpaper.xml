@@ -2,23 +2,60 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topToolbar"
+            style="@style/UnsplashToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:menu="@menu/top_app_bar"
+            app:title="@string/unsplash" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/TabSelectedTheme"
         app:tabIndicator="@drawable/selected_dot"
         app:tabIndicatorColor="@color/colorTabIndicator"
         app:tabIndicatorHeight="20dp" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <View
+        style="@style/UnsplashDayNightStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            style="@style/TabSelectedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            app:menu="@menu/bottom_navigation_menu" />
+
+    </LinearLayout>
 
 </LinearLayout>

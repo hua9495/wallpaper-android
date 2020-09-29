@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.wallpaper
+package com.alexchan.wallpaper.adapter.dashboard_details
 
 import androidx.databinding.BindingAdapter
 import com.alexchan.wallpaper.R
@@ -11,9 +11,11 @@ fun bindUserProfileImage(view: CircleImageView, url: String?) {
     url?.let {
         Glide.with(view.context)
             .load(url)
-            .apply(RequestOptions()
+            .apply(
+                RequestOptions()
                     .placeholder(R.drawable.placeholder_user)
-                    .error(R.drawable.ic_baseline_broken_image))
+                    .error(R.drawable.ic_baseline_broken_image)
+            )
             .into(view)
     }
 }

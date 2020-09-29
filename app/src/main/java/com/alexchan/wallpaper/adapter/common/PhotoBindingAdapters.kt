@@ -1,4 +1,4 @@
-package com.alexchan.wallpaper.adapter.wallpaper
+package com.alexchan.wallpaper.adapter.common
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -11,9 +11,11 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
         Glide.with(imgView.context)
             .load(imgUrl)
-            .apply(RequestOptions()
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_baseline_broken_image))
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_baseline_broken_image)
+            )
             .into(imgView)
     }
 }

@@ -7,20 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexchan.wallpaper.model.unsplash.Photo
 import com.alexchan.wallpaper.service.web.UnsplashApi
-import com.alexchan.wallpaper.ui.MainActivity.Companion.searchQuery
-import com.alexchan.wallpaper.ui.MainActivity.Companion.searchStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 enum class UnsplashApiStatus { LOADING, ERROR, DONE }
 
 class DashboardViewModel : ViewModel() {
-    
+
     private val _status = MutableLiveData<UnsplashApiStatus>()
 
     // List <Photo>
     private val _photoProperties = MutableLiveData<List<Photo>>()
-    
+
     val status: LiveData<UnsplashApiStatus>
         get() = _status
 
@@ -34,34 +32,33 @@ class DashboardViewModel : ViewModel() {
         get() = _navigateToUserCollection
 
     init {
-        if (!searchStatus) {
-            getUnsplashPhotos()
-        } else {
-            getUnsplashSearchPhotos(searchQuery)
-        }
+        getUnsplashPhotos()
     }
-    
+
     private fun getUnsplashPhotos() {
         viewModelScope.launch(Dispatchers.Main) {
             // Get List <Photo>
             var getListPhotosDeferred = UnsplashApi.retrofitService.getPhotosAsync()
 
             try {
-                _status.value = UnsplashApiStatus.LOADING
+                _status.value =
+                    UnsplashApiStatus.LOADING
                 var listPhotos = getListPhotosDeferred.await()
-                _status.value = UnsplashApiStatus.DONE
+                _status.value =
+                    UnsplashApiStatus.DONE
 
                 if (listPhotos.size > 0) {
                     _photoProperties.value = listPhotos
 
                     // For testing purposes
-                    listPhotos.forEach{
+                    listPhotos.forEach {
                         Log.d("Photos", it.photoUrl.raw)
                     }
                 }
 
             } catch (e: Exception) {
-                _status.value = UnsplashApiStatus.ERROR
+                _status.value =
+                    UnsplashApiStatus.ERROR
                 _photoProperties.value = ArrayList()
             }
         }
@@ -70,12 +67,15 @@ class DashboardViewModel : ViewModel() {
     fun getUnsplashSearchPhotos(searchQuery: String) {
         viewModelScope.launch(Dispatchers.Main) {
             // Get List <Photo>
-            var getListSearchedPhotosDeferred = UnsplashApi.retrofitService.getSearchPhotosAsync(searchQuery)
+            var getListSearchedPhotosDeferred =
+                UnsplashApi.retrofitService.getSearchPhotosAsync(searchQuery)
 
             try {
-                _status.value = UnsplashApiStatus.LOADING
+                _status.value =
+                    UnsplashApiStatus.LOADING
                 var listSearchedPhotos = getListSearchedPhotosDeferred.await()
-                _status.value = UnsplashApiStatus.DONE
+                _status.value =
+                    UnsplashApiStatus.DONE
 
                 Log.d("Photos", listSearchedPhotos.results.size.toString())
 
@@ -83,14 +83,39 @@ class DashboardViewModel : ViewModel() {
                     _photoProperties.value = listSearchedPhotos.results
 
                     // For testing purposes
-                    listSearchedPhotos.results.forEach{
+                    listSearchedPhotos.results.forEach {
                         //Log.d("Photos", it.photoUrl.raw)
                         Log.d("Photos", it.photoUrl.raw)
                     }
                 }
 
             } catch (e: Exception) {
-                _status.value = UnsplashApiStatus.ERROR
+                _status.value =
+                    UnsplashApiStatus.ERROR
+                _photoProperties.value = ArrayList()
+            }
+        }
+    }
+
+    fun getUnsplashPagination(pageNumber: Int) {
+        viewModelScope.launch(Dispatchers.Main) {
+            // Get List <Photo>
+            var getListUPaginationPhotosDeferred =
+                UnsplashApi.retrofitService.getPaginationPhotosAsync(pageNumber)
+
+            try {
+                _status.value =
+                    UnsplashApiStatus.LOADING
+                var listPaginationPhotos = getListUPaginationPhotosDeferred.await()
+                _status.value =
+                    UnsplashApiStatus.DONE
+
+                if (listPaginationPhotos.size > 0) {
+                    _photoProperties.value = listPaginationPhotos
+                }
+            } catch (e: java.lang.Exception) {
+                _status.value =
+                    UnsplashApiStatus.ERROR
                 _photoProperties.value = ArrayList()
             }
         }

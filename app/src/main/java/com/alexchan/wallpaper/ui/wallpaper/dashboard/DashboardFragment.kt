@@ -1,37 +1,42 @@
 package com.alexchan.wallpaper.ui.wallpaper.dashboard
 
+import android.content.Context
+import android.content.res.Configuration
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alexchan.wallpaper.R
-import com.alexchan.wallpaper.adapter.wallpaper.PhotoGridAdapter
+import com.alexchan.wallpaper.adapter.dashboard.PhotoGridAdapter
 import com.alexchan.wallpaper.databinding.FragmentDashboardBinding
-import com.alexchan.wallpaper.ui.MainActivity
 import com.alexchan.wallpaper.ui.wallpaper.WallpaperFragmentDirections
-import kotlinx.android.synthetic.main.activity_main.*
+import com.alexchan.wallpaper.util.shared_preferences.DisplayViewTypePreferences
+import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_wallpaper.*
+
 
 class DashboardFragment : Fragment() {
-
-    // Hold a Reference to PhotosGrid Recylerview
-    val photosGridRecylerView by lazy { requireActivity().findViewById<RecyclerView>(R.id.photosGrid) }
 
     private val dashboardViewModel: DashboardViewModel by lazy {
         ViewModelProvider(this).get(DashboardViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentDashboardBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -46,80 +51,177 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.navigateToUserCollection.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 this.findNavController().navigate(
-                    WallpaperFragmentDirections.actionShowDetail(it))
+                    WallpaperFragmentDirections.actionShowDetail(it)
+                )
                 dashboardViewModel.displayUserCollectionComplete()
             }
         })
 
-        // Show Top Toolbar
-        requireActivity().topToolbar.visibility = View.VISIBLE
-
-        // Set TopToolbar OnMenuItemClickListener
-        requireActivity().topToolbar.setOnMenuItemClickListener{item: MenuItem? -> onMenuItemClick(item)}
+        // Set TopToolbar OnMenuItemClickListener -> (Change to Floating Action Button)
+        requireActivity().topToolbar.setOnMenuItemClickListener { item: MenuItem? ->
+            onMenuItemClick(
+                item
+            )
+        }
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = DataBindingUtil.bind<FragmentDashboardBinding>(view)
+
+        // Use Shared Preference to get user selected display view type
+        val displayViewTypePreferences = DisplayViewTypePreferences(requireContext())
+        // Set Layout Manager Programmatically based on the user display view type preferences
+        // Default is 1, which means StaggeredGridLayoutManager is used by default
+        when (displayViewTypePreferences.getUserSelectionDisplayViewType()) {
+            0 -> binding?.photosGrid?.layoutManager =
+                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+            else -> binding?.photosGrid?.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
+
+        // Experimental
+        binding?.photosGrid?.adapter?.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+        // Handle Swipe Refresh Layout
+        binding?.photosGridSwipeRefresh?.apply {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    setProgressBackgroundColorSchemeResource(R.color.colorOnPrimary)
+                    setColorSchemeResources(R.color.colorPrimary)
+                }
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    setProgressBackgroundColorSchemeResource(R.color.colorPrimary)
+                    setColorSchemeResources(R.color.colorOnPrimary)
+                }
+            }
+            setOnRefreshListener { refreshDashboard() }
+        }
+    }
+
+    private fun refreshDashboard() {
+        // Get current internet connection status
+        val connectionManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val networkManager = connectionManager?.activeNetwork
+        val activeNetwork = connectionManager?.getNetworkCapabilities(networkManager)
+        // Check if it is connected to mobile data or wifi and have valid connected access
+        if (activeNetwork != null) {
+            if (activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+            ) {
+                photosGridSwipeRefresh.isRefreshing = false
+                val navHostFragment =
+                    requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                val navController = navHostFragment?.findNavController()
+                navController?.popBackStack(R.id.wallpaperFragment, true)
+                navController?.navigate(R.id.wallpaperFragment)
+            } else {
+                photosGridSwipeRefresh.isRefreshing = false
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().getString(R.string.no_active_connection),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        } else {
+            photosGridSwipeRefresh.isRefreshing = false
+            Toast.makeText(
+                requireContext(),
+                requireContext().getString(R.string.no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    /*private fun displayPreviousPage() {
+        // Get current internet connection status
+        val connectionManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val networkManager = connectionManager?.activeNetwork
+        val activeNetwork = connectionManager?.getNetworkCapabilities(networkManager)
+        // Check if it is connected to mobile data or wifi and have valid connected access
+        if (activeNetwork != null) {
+            if (activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                MainActivity.paginationStatus = true
+                if (MainActivity.pageNumber > 1) {
+                    MainActivity.pageNumber = MainActivity.pageNumber - 1
+                    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                    val navController = navHostFragment?.findNavController()
+                    navController?.popBackStack(R.id.wallpaperFragment, true)
+                    navController?.navigate(R.id.wallpaperFragment)
+                } else {
+                    Toast.makeText(requireContext(), requireContext().getString(R.string.you_are_already_on_the_first_page), Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(requireContext(), requireContext().getString(R.string.no_active_connection), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(requireContext(), requireContext().getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun displayNextPage() {
+        // Get current internet connection status
+        val connectionManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val networkManager = connectionManager?.activeNetwork
+        val activeNetwork = connectionManager?.getNetworkCapabilities(networkManager)
+        // Check if it is connected to mobile data or wifi and have valid connected access
+        if (activeNetwork != null) {
+            if (activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                MainActivity.paginationStatus = true
+                MainActivity.pageNumber = MainActivity.pageNumber + 1
+                val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
+                val navController = navHostFragment?.findNavController()
+                navController?.popBackStack(R.id.wallpaperFragment, true)
+                navController?.navigate(R.id.wallpaperFragment)
+            } else {
+                Toast.makeText(requireContext(), requireContext().getString(R.string.no_active_connection), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(requireContext(), requireContext().getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show()
+        }
+    }*/
+
     private fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.search -> {
-
-                // Handle Search View
-                val searchView = item.actionView as SearchView
-                searchView.queryHint = getString(R.string.search_photos)
-                searchView.isSubmitButtonEnabled = true
-
-                // Hide and UnHide changeDisplayView Menu Item
-                searchView.setOnQueryTextFocusChangeListener { v, hasFocus ->
-                    requireActivity().topToolbar.menu.findItem(R.id.changeDisplayView).isVisible = !hasFocus
-                }
-
-                // Handle Search Query
-                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String): Boolean {
-                        searchView.clearFocus()
-
-                        if (!query.isNullOrEmpty()) {
-                            Toast.makeText(activity, "Searching: $query", Toast.LENGTH_LONG).show()
-                            MainActivity.searchQuery = query
-                            MainActivity.searchStatus = true
-                        } else {
-                            MainActivity.searchQuery = ""
-                            MainActivity.searchStatus = false
-                        }
-
-                        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment)
-                        val navController = navHostFragment?.findNavController()
-                        navController?.popBackStack(R.id.wallpaperFragment, true)
-                        navController?.navigate(R.id.wallpaperFragment)
-                        return true
-                    }
-
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        return true
-                    }
-                })
+                requireActivity().findNavController(R.id.mainNavHostFragment)
+                    .navigate(R.id.searchFragment)
                 true
             }
-            R.id.listView -> {
+            // Change to Floating Action Button (FAB)
+            /*R.id.listView -> {
                 // Handle List View
                 //photosGrid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                photosGridRecylerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-                true
-            }
-            R.id.gridView -> {
-                // Handle Grid View
-                //unsplashPhotoImageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                //unsplashPhotoImageView.requestLayout()
-                photosGridRecylerView.layoutManager = GridLayoutManager(requireContext(), 2)
+                requireActivity().photosGrid.layoutManager =
+                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+                getUserSelectedDisplayViewType(0)
                 true
             }
             R.id.staggeredGridView -> {
                 // Handle Staggered View
-                photosGridRecylerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                requireActivity().photosGrid.layoutManager =
+                    StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                getUserSelectedDisplayViewType(1)
                 true
-            }
+            }*/
             else -> false
         }
     }
+
 }

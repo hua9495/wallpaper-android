@@ -54,11 +54,15 @@ interface UnsplashApiService {
     @GET("search/photos")
     fun getSearchPhotosAsync(@Query("query") type: String):
             Deferred<Unsplash>
+
+    @GET("photos")
+    fun getPaginationPhotosAsync(@Query("page") type: Int):
+            Deferred<List<Photo>>
 }
 
 // Singleton too expensive to call - so call once
 object UnsplashApi {
-    val retrofitService : UnsplashApiService by lazy {
+    val retrofitService: UnsplashApiService by lazy {
         retrofit.create(UnsplashApiService::class.java)
     }
 }
